@@ -1,0 +1,45 @@
+<body class="bg-white">
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Current Portfolio's</a>
+            </div>
+          </nav>
+       <div class="card-body">
+         <div class="tab-content" id="nav-tabContent">
+           <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              <table class="table table-bordered" id="most_active_table" width="100%" cellspacing="0">
+                <thead>
+                    <i class="text-center fa fa-table"></i>
+                    <tr>
+                      <th>Symbol</th>
+                      <th>Sector</th>
+                      <th>High</th>
+                      <th>Low</th>
+                      <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <% current_user.stocks.each do |stock| %>
+                    <tr>
+                      <td><%= stock.symbol %></td>
+                      <td><%= stock.sector %></td>
+                      <td><%= stock.high %></td>
+                      <td><%= stock.low %></td>
+                      <td><%= stock.price %></td>
+                      <td><%= link_to 'Edit', edit_stock_path(stock) %></td>
+                      <td><p><%= link_to 'Destroy', stock_path(stock), method: :delete, data: { confirm: 'Are you sure?' } %></p></td>
+
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+                <%= link_to 'Add Stocks', new_stock_path %>
+
+           </div>
+         </div>
+       </div>
+    </div>
+  </div>
+</body>

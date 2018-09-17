@@ -1,0 +1,16 @@
+<center>
+  <div class="container">
+    <div class="card-body">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <%= link_to 'Home', portfolios_path %>
+        </li>
+        <li class="breadcrumb-item">
+          <%= link_to 'Portfolio Preview', @stock %>
+        </li>
+        <li class="breadcrumb-item active">Edit</li>
+      </ol>
+        <%= render 'form' %>
+    </div>
+  </div>
+</center>

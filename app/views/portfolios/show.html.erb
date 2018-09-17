@@ -1,0 +1,46 @@
+<center>
+    <body class="bg-dark">
+      <div class="container">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <%= link_to 'Home', portfolios_path %>
+          </li>
+          <li class="breadcrumb-item">
+            <%= link_to 'Edit', edit_portfolio_path(@portfolio) %>
+           </li>
+           <li class="breadcrumb-item active">Show</li>
+        </ol>
+
+        <div class="card card-login mx-auto mt-5">
+
+          <div class="card-header">Details</div>
+            <div class="card-body">
+
+            <div class="form-group">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <th>Symbol</th>
+                            <th>Sector</th>
+                            <th>High</th>
+                            <th>Low</th>
+                            <th>Price</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><%=@portfolio.symbol%></td>
+                            <td><%=@portfolio.sector%></td>
+                            <td><%=@portfolio.high%></td>
+                            <td><%=@portfolio.low%></td>
+                            <td><%=@portfolio.price%></td>
+                          </tr>
+                        </tbody>
+                      </table>
+            </div>
+      </div>
+      </div>
+      </div>
+      </div>
+    </body>
+</center>

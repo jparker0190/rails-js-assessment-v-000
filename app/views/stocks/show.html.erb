@@ -1,0 +1,47 @@
+<center>
+  <body class="bg-dark">
+    <div class="container">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <%= link_to 'Home', portfolios_path %>
+          </li>
+          <li class="breadcrumb-item">
+            <%= link_to 'Edit', edit_stock_path(@stock) %>
+          </li>
+           <li class="breadcrumb-item active">Portfolio Preview</li>
+        </ol>
+
+        <div class="card card-login mx-auto mt-5">
+          <div class="card-header">Details</div>
+            <div class="card-body">
+
+              <div class="form-group">
+                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                          <thead>
+                            <tr>
+                              <th>Symbol</th>
+                              <th>Sector</th>
+                              <th>High</th>
+                              <th>Low</th>
+                              <th>Price</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% current_user.stocks.each do |stock| %>
+                            <tr>
+                              <td><%=stock.symbol%></td>
+                              <td><%=stock.sector%></td>
+                              <td><%=stock.high%></td>
+                              <td><%=stock.low%></td>
+                              <td><%=stock.price%></td>
+                            </tr>
+                            <% end %>
+                          </tbody>
+                        </table>
+             </div>
+           </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</center>
