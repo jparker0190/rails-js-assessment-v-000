@@ -6,6 +6,8 @@ class PortfoliosController < ApplicationController
   # GET /portfolios.json
     def index
         @portfolio = Portfolio.all
+        @resp = Faraday.get 'https://api.iextrading.com/1.0/stock/aapl/stats'
+        @venues = JSON.parse(@resp.body)
     end
 
   # GET /portfolios/1

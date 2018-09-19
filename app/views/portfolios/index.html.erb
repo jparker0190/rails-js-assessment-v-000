@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <title>W3.CSS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -9,10 +10,9 @@
 <body>
 
 <div class="w3-container">
-<h2>Modal Tabs</h2>
-<p>In this example we add tabbed content inside the modal.</p>
+<h2></h2>
+<p></p>
 
-<button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Open Tabbed Modal</button>
 
 <div id="id01" class="w3-modal">
  <div class="w3-modal-content w3-card-4 w3-animate-zoom">
@@ -23,48 +23,82 @@
   </header>
 
   <div class="w3-bar w3-border-bottom">
-   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'London')">London</button>
-   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Paris')">Paris</button>
-   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Details')">Details</button>
+   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'News')">News</button>
+   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Options')">Options</button>
   </div>
 
-  <div id="London" class="w3-container city">
+  <div id="Details" class="w3-container city">
     <table class="table table-bordered" id="most_active_table" width="100%" cellspacing="0">
-      <thead>
-          <i class="text-center fa fa-table"></i>
           <tr>
-            <th>Symbol</th>
-            <th>Sector</th>
-            <th>High</th>
-            <th>Low</th>
-            <th>Price</th>
+              <td>Company</td>
+              <td> </td>
+              <td>Beta</td>
+              <td> </td>
+              <td>Institutional %</td>
+              <td> </td>
           </tr>
-      </thead>
-      <tbody>
-        <% current_user.stocks.each do |stock| %>
           <tr>
-            <td><%= stock.symbol %></td>
-            <td><%= stock.sector %></td>
-            <td><%= stock.high %></td>
-            <td><%= stock.low %></td>
-            <td><%= stock.price %></td>
-            <td><%= link_to 'Edit', edit_stock_path(stock) %></td>
-            <td><p><%= link_to 'Destroy', stock_path(stock), method: :delete, data: { confirm: 'Are you sure?' } %></p></td>
-
+              <td>Float</td>
+              <td> </td>
+              <td>Short %</td>
+              <td> </td>
+              <td>Insider %</td>
+              <td> </td>
           </tr>
-        <% end %>
-      </tbody>
-    </table>  </div>
+          <tr>
+              <td>Symbol</td>
+              <td> </td>
+              <td>Dividend %</td>
+              <td> </td>
+              <td>200 Day Mvg Avg</td>
+              <td> </td>
+          </tr>
+          <tr>
+              <td>Open/Close</td>
+              <td> </td>
+              <td>EPS Date</td>
+              <td> </td>
+              <td>50 Day Mvg Avg</td>
+              <td> </td>
+          </tr>
+          <tr>
+              <td>Avg Volume</td>
+              <td> </td>
+              <td>Float</td>
+              <td> </td>
+              <td>6 Mth %</td>
+              <td> </td>
+          </tr>
+          <tr>
+              <td>Market Cap</td>
+              <td> </td>
+              <td>Shares Outstanding</td>
+              <td> </td>
+              <td>1 Yr %</td>
+              <td> </td>
+          </tr>
+          <tr>
+              <td>Peers</td>
+              <td> </td>
+              <td>Short Ratio</td>
+              <td> </td>
+              <td>YTD %</td>
+              <td> </td>
+          </tr>
 
-  <div id="Paris" class="w3-container city">
-   <h1>Paris</h1>
-   <p>Paris is the capital of France.</p>
+    </table>
+ </div>
+
+  <div id="News" class="w3-container city">
+   <h1>News</h1>
+   <p>News is the capital of France.</p>
    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </div>
 
-  <div id="Tokyo" class="w3-container city">
-   <h1>Tokyo</h1>
-   <p>Tokyo is the capital of Japan.</p><br>
+  <div id="Options" class="w3-container city">
+   <h1>Options</h1>
+   <p>Options is the capital of Japan.</p><br>
   </div>
 
   <div class="w3-container w3-light-grey w3-padding">
@@ -122,7 +156,7 @@ function openCity(evt, cityName) {
                 <tbody>
                   <% current_user.stocks.each do |stock| %>
                     <tr>
-                      <td><%= stock.symbol %></td>
+                      <td><button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black"><%= stock.symbol %></button></td>
                       <td><%= stock.sector %></td>
                       <td><%= stock.high %></td>
                       <td><%= stock.low %></td>
@@ -134,8 +168,6 @@ function openCity(evt, cityName) {
                   <% end %>
                 </tbody>
               </table>
-                <%= link_to 'Add Stocks', new_stock_path %>
-
            </div>
          </div>
        </div>
