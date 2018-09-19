@@ -14,6 +14,7 @@ class PortfoliosController < ApplicationController
   # GET /portfolios/1.json
     def show
       @portfolio = Portfolio.find(params[:id])
+      render json: @portfolio.to_json(only: [:companyName, :beta])
     end
 
   # GET /portfolios/new

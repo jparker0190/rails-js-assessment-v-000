@@ -5,6 +5,7 @@
         <div class="card-body">
 
             <%= form_for(@portfolio) do |f| %>
+
                 <% if @portfolio.errors.any? %>
                   <div id="error_explanation">
                     <h2><%= pluralize(@portfolio.errors.count, "error") %> prohibited this portfolio from being saved:</h2>
@@ -34,7 +35,7 @@
                     </div>
                     <div class="actions">
                       <%= f.submit "Create Portfolio", class: 'btn btn-primary btn-block' %>
-                    </div>
+
             <% end %>
       </div>
     </div>

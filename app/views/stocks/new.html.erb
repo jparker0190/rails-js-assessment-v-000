@@ -7,8 +7,55 @@
         </li>
         <li class="breadcrumb-item active">Create</li>
       </ol>
-      <%= render 'form'%>
-
+      <%= form_for(@stock) do |f| %>
+        <div class="field">
+          <%= f.label :title %><br>
+          <%= f.text_field :symbol %>
+        </div>
+        <div class="field">
+          <%= f.label :sector %><br>
+          <%= f.text_field :sector %>
+        </div>
+        <div class="field">
+          <%= f.label :high %><br>
+          <%= f.number_field :high %>
+        </div>
+        <div class="field">
+          <%= f.label :low %><br>
+          <%= f.number_field :low %>
+        </div>
+        <div class="field">
+          <%= f.label :price %><br>
+          <%= f.number_field :price %>
+        </div>
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+      <% end %>
+      <div id="postResult">
+        <h2 id="portsymbol"></h2>
+        <h2 id="portsector"></h2>
+        <h2 id="porthigh"></h2>
+        <h2 id="portlow"></h2>
+        <h2 id="portprice"></h2>
+    </div>
+      <script type="text/javascript" charset="utf-8">
+        $(function(){
+          $('form').submit(function(event){
+            event.preventDefault();
+            var values = $(this).serialize();
+            var posting = $.post('/stocks', values);
+            posting.done(function(data){
+              var post = data;
+              $("#portsymbol").text(post['symbol']);
+              $("#portsector").text(post['sector']);
+              $("#porthigh").text(post['high']);
+              $("#portlow").text(post['low']);
+              $("#portprice").text(post['price']);
+            })
+          })
+        })
+      </script>
     </div>
   </div>
 </center>

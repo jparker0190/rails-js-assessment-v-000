@@ -1,135 +1,4 @@
-<!DOCTYPE html>
-<html>
 
-<title>W3.CSS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-.city {display:none}
-</style>
-<body>
-
-<div class="w3-container">
-<h2></h2>
-<p></p>
-
-
-<div id="id01" class="w3-modal">
- <div class="w3-modal-content w3-card-4 w3-animate-zoom">
-  <header class="w3-container w3-blue">
-   <span onclick="document.getElementById('id01').style.display='none'"
-   class="w3-button w3-blue w3-xlarge w3-display-topright">&times;</span>
-   <h2>Header</h2>
-  </header>
-
-  <div class="w3-bar w3-border-bottom">
-   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Details')">Details</button>
-   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'News')">News</button>
-   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Options')">Options</button>
-  </div>
-
-  <div id="Details" class="w3-container city">
-    <table class="table table-bordered" id="most_active_table" width="100%" cellspacing="0">
-          <tr>
-              <td>Company</td>
-              <td> </td>
-              <td>Beta</td>
-              <td> </td>
-              <td>Institutional %</td>
-              <td> </td>
-          </tr>
-          <tr>
-              <td>Float</td>
-              <td> </td>
-              <td>Short %</td>
-              <td> </td>
-              <td>Insider %</td>
-              <td> </td>
-          </tr>
-          <tr>
-              <td>Symbol</td>
-              <td> </td>
-              <td>Dividend %</td>
-              <td> </td>
-              <td>200 Day Mvg Avg</td>
-              <td> </td>
-          </tr>
-          <tr>
-              <td>Open/Close</td>
-              <td> </td>
-              <td>EPS Date</td>
-              <td> </td>
-              <td>50 Day Mvg Avg</td>
-              <td> </td>
-          </tr>
-          <tr>
-              <td>Avg Volume</td>
-              <td> </td>
-              <td>Float</td>
-              <td> </td>
-              <td>6 Mth %</td>
-              <td> </td>
-          </tr>
-          <tr>
-              <td>Market Cap</td>
-              <td> </td>
-              <td>Shares Outstanding</td>
-              <td> </td>
-              <td>1 Yr %</td>
-              <td> </td>
-          </tr>
-          <tr>
-              <td>Peers</td>
-              <td> </td>
-              <td>Short Ratio</td>
-              <td> </td>
-              <td>YTD %</td>
-              <td> </td>
-          </tr>
-
-    </table>
- </div>
-
-  <div id="News" class="w3-container city">
-   <h1>News</h1>
-   <p>News is the capital of France.</p>
-   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-  </div>
-
-  <div id="Options" class="w3-container city">
-   <h1>Options</h1>
-   <p>Options is the capital of Japan.</p><br>
-  </div>
-
-  <div class="w3-container w3-light-grey w3-padding">
-   <button class="w3-button w3-right w3-white w3-border"
-   onclick="document.getElementById('id01').style.display='none'">Close</button>
-  </div>
- </div>
-</div>
-
-</div>
-
-<script>
-document.getElementsByClassName("tablink")[0].click();
-
-function openCity(evt, cityName) {
-  var i, x, tablinks;
-  x = document.getElementsByClassName("city");
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablink");
-  for (i = 0; i < x.length; i++) {
-    tablinks[i].classList.remove("w3-light-grey");
-  }
-  document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.classList.add("w3-light-grey");
-}
-</script>
-
-</body>
-</html>
 
 <body class="bg-white">
   <div class="container">
@@ -156,7 +25,7 @@ function openCity(evt, cityName) {
                 <tbody>
                   <% current_user.stocks.each do |stock| %>
                     <tr>
-                      <td><button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black"><%= stock.symbol %></button></td>
+                      <td><%= stock.symbol %></td>
                       <td><%= stock.sector %></td>
                       <td><%= stock.high %></td>
                       <td><%= stock.low %></td>
@@ -168,6 +37,24 @@ function openCity(evt, cityName) {
                   <% end %>
                 </tbody>
               </table>
+              <%= link_to 'Add Stocks', new_stock_path %>
+              <h1><%= post.id %>: <%= link_to post.title, post_path(post) %></h2>
+              <div id="body-<%= stock.id %>"><%= truncate post.description %></div>
+              <% current_user.stocks.each do |post|%>
+
+              <%end%>
+              <button class="js-more" data-id="<%= stock.id %>">More...</button>
+              <script type="text/javascript" charset="utf-8">
+                $(function () {
+                  $(".js-more").on('click', function() {
+                    var id = $(this).data("id");
+                    $.get("/posts/" + id + "/post_data", function(data) {
+                      // Replace text of body-id div
+                      $("#body-" + id).html(data["description"]);
+                    });
+                  });
+                });
+                </script>
            </div>
          </div>
        </div>

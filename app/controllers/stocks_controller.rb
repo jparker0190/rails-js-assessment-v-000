@@ -14,7 +14,7 @@ class StocksController < ApplicationController
 
   def create
     @stock = current_user.stocks.create(stock_params)
-    redirect_to portfolios_path(@stock)
+    render json: @stock, status: 201
   end
 
 # GET /stocks/new
@@ -22,6 +22,12 @@ class StocksController < ApplicationController
     @stock = Stock.new
   end
 
+  def post_data
+     post = Stock.find(params[:id])
+     #render json: PostSerializer.serialize(post)
+     render json: post.to_json(only: [:symbol, :sector, :high, :low, :price],
+                               include: [ user: { only: [:name]}])
+   end
 # GET /stocks/1/edit
   def edit
   end
@@ -30,6 +36,10 @@ class StocksController < ApplicationController
 # GET /stocks/1.json
   def show
     @stock = Stock.find(params[:id])
+      respond_to do |format|
+        format.html { render :show }
+        format.json { render json: @stock}
+      end
   end
 
 # DELETE /stocks/1

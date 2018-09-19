@@ -46,7 +46,6 @@ group :development do
 end
 gem 'devise'
 gem 'bootstrap'
-gem 'faraday'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'figaro'
