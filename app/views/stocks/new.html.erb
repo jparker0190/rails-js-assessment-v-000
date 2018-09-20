@@ -7,38 +7,32 @@
         </li>
         <li class="breadcrumb-item active">Create</li>
       </ol>
-      <%= form_for(@stock) do |f| %>
-        <div class="field">
-          <%= f.label :title %><br>
-          <%= f.text_field :symbol %>
-        </div>
-        <div class="field">
-          <%= f.label :sector %><br>
-          <%= f.text_field :sector %>
-        </div>
-        <div class="field">
-          <%= f.label :high %><br>
-          <%= f.number_field :high %>
-        </div>
-        <div class="field">
-          <%= f.label :low %><br>
-          <%= f.number_field :low %>
-        </div>
-        <div class="field">
-          <%= f.label :price %><br>
-          <%= f.number_field :price %>
-        </div>
-        <div class="actions">
-          <%= f.submit %>
-        </div>
-      <% end %>
-      <div id="postResult">
-        <h2 id="portsymbol"></h2>
-        <h2 id="portsector"></h2>
-        <h2 id="porthigh"></h2>
-        <h2 id="portlow"></h2>
-        <h2 id="portprice"></h2>
-    </div>
+      <%= render 'form'%>
+    <% current_user.stocks.each do |stock| %>
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+             <tr>
+              <th>Symbol</th>
+              <th>Sector</th>
+              <th>High</th>
+              <th>Low</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr>
+            <div id="postResult">
+              <td id ="portsymbol"><%=stock.symbol%></td>
+              <td id ="portsector"><%=stock.sector%></td>
+              <td id ="porthigh"><%=stock.high%></td>
+              <td id ="portlow"><%=stock.low%></td>
+              <td id ="portprice"><%=stock.price%></td>
+            </div>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
       <script type="text/javascript" charset="utf-8">
         $(function(){
           $('form').submit(function(event){

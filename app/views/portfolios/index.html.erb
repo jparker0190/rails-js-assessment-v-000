@@ -1,5 +1,3 @@
-
-
 <body class="bg-white">
   <div class="container">
     <div class="card card-login mx-auto mt-5">
@@ -38,23 +36,23 @@
                 </tbody>
               </table>
               <%= link_to 'Add Stocks', new_stock_path %>
-              <h1><%= post.id %>: <%= link_to post.title, post_path(post) %></h2>
-              <div id="body-<%= stock.id %>"><%= truncate post.description %></div>
-              <% current_user.stocks.each do |post|%>
 
-              <%end%>
-              <button class="js-more" data-id="<%= stock.id %>">More...</button>
+              <% current_user.stocks.each do |post| %>
+                <%= render partial: "stock", locals: {post: post} %>
+              <% end %>
+
               <script type="text/javascript" charset="utf-8">
                 $(function () {
                   $(".js-more").on('click', function() {
                     var id = $(this).data("id");
-                    $.get("/posts/" + id + "/post_data", function(data) {
+                    $.get("/stocks/" + id + "/post_data", function(data) {
                       // Replace text of body-id div
-                      $("#body-" + id).html(data["description"]);
+                      $("#body-" + id).html(data["symbol"]);
                     });
                   });
                 });
                 </script>
+
            </div>
          </div>
        </div>

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :portfolios
   resources :stocks
   devise_for :users, controllers: {registrations: "registrations", :omniauth_callbacks => "users/omniauth_callbacks"}
+  get 'stocks/:id/post_data', to: 'stocks#post_data'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

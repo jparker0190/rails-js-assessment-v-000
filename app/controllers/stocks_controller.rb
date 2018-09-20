@@ -25,8 +25,8 @@ class StocksController < ApplicationController
   def post_data
      post = Stock.find(params[:id])
      #render json: PostSerializer.serialize(post)
-     render json: post.to_json(only: [:symbol, :sector, :high, :low, :price],
-                               include: [ user: { only: [:name]}])
+     render json: post.to_json(only: [:symbol, :sector, :high, :low, :price, :id],
+                        include: [user: { only: [:name]}])
    end
 # GET /stocks/1/edit
   def edit
