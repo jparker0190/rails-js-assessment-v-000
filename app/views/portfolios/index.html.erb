@@ -45,8 +45,8 @@
                 $(function () {
                   $(".js-more").on('click', function() {
                     var id = $(this).data("id");
-                    $.get("/stocks/" + id + "/post_data", function(data) {
-                      // Replace text of body-id div
+                    $.getJSON("/stocks/" + id + "/post_data", function(data) {
+
                       $("#body-" + id).html(data["symbol"]);
                     });
                   });

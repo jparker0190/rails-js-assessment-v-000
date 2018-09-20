@@ -7,6 +7,7 @@
         </li>
         <li class="breadcrumb-item active">Create</li>
       </ol>
+
       <%= render 'form'%>
     <% current_user.stocks.each do |stock| %>
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -41,11 +42,13 @@
             var posting = $.post('/stocks', values);
             posting.done(function(data){
               var post = data;
+
               $("#portsymbol").text(post['symbol']);
               $("#portsector").text(post['sector']);
               $("#porthigh").text(post['high']);
               $("#portlow").text(post['low']);
               $("#portprice").text(post['price']);
+
             })
           })
         })
