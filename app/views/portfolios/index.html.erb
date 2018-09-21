@@ -1,9 +1,14 @@
 <body class="bg-white">
+  <h1>Current Portfolio's</h1>
+  <%=link_to("portfolios", new_portfolio_path)%>
+  <%@portfolio.each do |portfolio|%>
+
+
   <div class="container">
     <div class="card card-login mx-auto mt-5">
           <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Current Portfolio's</a>
+              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><%=portfolio.name%></a>
             </div>
           </nav>
        <div class="card-body">
@@ -37,20 +42,21 @@
               </table>
               <%= link_to 'Add Stocks', new_stock_path %>
 
+
               <% current_user.stocks.each do |post| %>
                 <%= render partial: "stock", locals: {post: post} %>
               <% end %>
 
               <script type="text/javascript" charset="utf-8">
-                $(function () {
-                  $(".js-more").on('click', function() {
-                    var id = $(this).data("id");
-                    $.getJSON("/stocks/" + id + "/post_data", function(data) {
+                  $(function () {
+                    $(".js-more").on('click', function() {
+                      var id = $(this).data("id");
+                      $.getJSON("/stocks/" + id + "/post_data", function(data) {
 
-                      $("#body-" + id).html(data["symbol"]);
+                        $("#body-" + id).html(data["symbol"]);
+                      });
                     });
                   });
-                });
                 </script>
 
            </div>
@@ -58,4 +64,5 @@
        </div>
     </div>
   </div>
+  <%end%>
 </body>

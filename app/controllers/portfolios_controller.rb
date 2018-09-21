@@ -6,15 +6,13 @@ class PortfoliosController < ApplicationController
   # GET /portfolios.json
     def index
         @portfolio = Portfolio.all
-        @resp = Faraday.get 'https://api.iextrading.com/1.0/stock/aapl/stats'
-        @venues = JSON.parse(@resp.body)
     end
 
   # GET /portfolios/1
   # GET /portfolios/1.json
     def show
       @portfolio = Portfolio.find(params[:id])
-      render json: @portfolio.to_json(only: [:companyName, :beta])
+      #render json: @portfolio.to_json(only: [:companyName, :beta])
     end
 
   # GET /portfolios/new
@@ -31,7 +29,7 @@ class PortfoliosController < ApplicationController
   # POST /portfolios.json
     def create
       portfolio = Portfolio.create(portfolio_params)
-      redirect_to portfolio
+      redirect_to portfolios_path
     end
 
   # PATCH/PUT /portfolios/1
@@ -60,6 +58,6 @@ class PortfoliosController < ApplicationController
     end
   # Never trust parameters from the scary internet, only allow the white list through.
     def portfolio_params
-      params.require(:portfolio).permit(:symbol, :sector, :high, :low, :price, :stock_id[], :user_id[])
+      params.require(:portfolio).permit(:name)
     end
 end
