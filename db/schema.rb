@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20180903182426) do
   create_table "portfolios", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "stock_id"
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

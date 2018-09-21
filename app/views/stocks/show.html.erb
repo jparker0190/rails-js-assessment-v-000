@@ -16,7 +16,7 @@
             <div class="card-body">
 
               <div class="form-group">
-                    <!--  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                           <thead>
                              <tr>
                               <th>Symbol</th>
@@ -37,30 +37,7 @@
                             </tr>
                             <% end %>
                           </tbody>
-                        </table>-->
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-=======
-                        <a href="#" class="js-next" data-id="<%=@post.id%>">Next...</a>
-                        <h1 class="postTitle"><%= @post.title %></h1>
-                        <p class="postBody"><%= @post.description %></p>
-                        <script type="text/javascript" charset="utf-8">
-                            $(function () {
-                              $(".js-next").on("click", function() {
-                                var nextId = parseInt($(".js-next").attr("data-id")) + 1;
-                                $.get("/stock/" + nextId + "/post_data", function(data) {
-                                  $(".postTitle").text(data["symbol"]);
-                                  $(".postBody").text(data["sector"]);
-                                  // re-set the id to current on the link
-                                  $(".js-next").attr("data-id", data["id"]);
-                                });
-                              });
-                            });
-                        </script>
->>>>>>> 5f17268fc9c23dbec1e5309a61b69e8f8da1c492
->>>>>>> 4af8a22ed30793e0c4f81eb6021c8dd5ee1a9c76
+                        </table>
              </div>
            </div>
         </div>
