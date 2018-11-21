@@ -21,7 +21,7 @@
 
                 <tbody>
                   <% @stocks.each do |stock| %>
-                    <tr>
+                    <tr id=>
                       <td><%= stock.ticker %></td>
                       <td><%= stock.price %></td>
                       <td><%= link_to 'Show', stock %> | <%= link_to 'Edit', edit_stock_path(stock) %> | <%= link_to 'Destroy', stock, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -36,3 +36,23 @@
     </div><!-- ending div for "card card-login mx-auto mt-5"-->
   <%= link_to 'New Stock', new_stock_path %>
 </body><!--ending body "bg-dark"-->
+
+<% @stocks.each do |product| %>
+  <div id="product-<%= product.id %>"><%= truncate(product.ticker) %></div>
+  <button class="js-more" data-id="<%= product.id %>">More Info</button>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+$(function() {
+  $(".js-more").on("click", function() {
+    var id = $(this).data("id");
+    $.get("/stocks/" + id + "/ticker", function(ticker) {
+      $.get("/stocks/" + id + "/price", function(price) {
+        var inventoryText = "<strong>Available</strong>";
+        var descriptionText = "<p>" + price + "</p><p>" + inventoryText + "</p>";
+        $("#product-" + id).html(descriptionText);
+      });
+    });
+  });
+});
+</script>

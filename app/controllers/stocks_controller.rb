@@ -6,9 +6,19 @@ class StocksController < ApplicationController
  def index
    @stocks = Stock.all
  end
+ def ticker
+  @stock = Stock.find(params[:id])
+  render plain: @stock.ticker
+ end
+ def price
+  @stock = Stock.find(params[:id])
+  render plain: @stock.price
+ end
 
  # GET /stocks/:id
  def show
+  @stock = Stock.find(params(:id))
+  render json: @stocks, status: 200
  end
 
  # GET /stocks/new
