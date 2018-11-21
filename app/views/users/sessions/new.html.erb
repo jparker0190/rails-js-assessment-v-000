@@ -1,0 +1,38 @@
+<body class="bg-dark">
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class=" card-header">Logiasdfan</div>
+        <div class="card-body">
+
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="form-group">
+              <%= f.label :email %><br />
+              <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :password %><br />
+              <%= f.password_field :password, autocomplete: "current-password" %>
+            </div>
+
+            <% if devise_mapping.rememberable? -%>
+              <div class="form-group">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
+              </div>
+            <% end -%>
+
+            <div class="actions">
+              <%= f.submit "Log in" %>
+            </div>
+          <% end %>
+
+          <%= render "users/shared/links" %>
+
+      </div>
+      <!--ending div for "card card-login mx-auto mt-5-->
+    </div>
+    <!--ending div for "container"-->
+  </div>
+  <!--ending body for "bg-dark"-->
+</body>

@@ -1,31 +1,22 @@
 <body class="bg-dark">
-  <div class="container">
-    <div class="card card-login mx-auto mt-5">
-      <div class="card-header">Details</div>
-        <div class="card-body">
-
-            <%= form_for(@portfolio) do |f| %>
-
-                <% if @portfolio.errors.any? %>
-                  <div id="error_explanation">
-                    <h2><%= pluralize(@portfolio.errors.count, "error") %> prohibited this portfolio from being saved:</h2>
-
-                    <ul>
-                      <% @portfolio.errors.full_messages.each do |message| %>
-                      <li><%= message %></li>
-                      <% end %>
-                    </ul>
-                  </div>
-                <% end %>
-
-                    <div class="form-group">
-                      <%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: "Enter a name" %>
-                    </div>
-                    <div class="actions">
-                      <%= f.submit "Create Portfolio", class: 'btn btn-primary btn-block' %>
-                    </div>
-            <% end %>
+  <%= form_with(model: portfolio, local: true) do |form| %>
+    <% if portfolio.errors.any? %>
+      <div id="error_explanation">
+         <h2><%= pluralize(portfolio.errors.count, "error") %> prohibited this portfolio from being saved:</h2>
+         <ul>
+          <% portfolio.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+         </ul>
       </div>
+    <% end %>
+
+    <div class="form-group text-center">
+      <%= form.text_field :name, autofocus: true, class: 'form-control', placeholder: "Enter a name" %>
     </div>
-  </div>
+
+    <div class="actions">
+       <%= form.submit class: 'btn btn-primary btn-block' %>
+    </div>
+  <% end%>
 </body>

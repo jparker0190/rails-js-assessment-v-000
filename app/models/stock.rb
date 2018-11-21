@@ -1,4 +1,4 @@
-class Stock < ActiveRecord::Base
-  has_many :portfolios
-  has_many :users, through: :portfolios
+class Stock < ApplicationRecord
+ has_many :assignments
+ has_many :portfolios, through: :assignments
 end

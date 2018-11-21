@@ -1,68 +1,39 @@
-<body class="bg-white">
-  <h1>Current Portfolio's</h1>
-  <%=link_to("portfolios", new_portfolio_path)%>
-  <%@portfolio.each do |portfolio|%>
-
-
-  <div class="container">
+<body class="bg-dark"> 
+  <div class="container text-center">
     <div class="card card-login mx-auto mt-5">
-          <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><%=portfolio.name%></a>
-            </div>
-          </nav>
-       <div class="card-body">
-         <div class="tab-content" id="nav-tabContent">
-           <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-              <table class="table table-bordered" id="most_active_table" width="100%" cellspacing="0">
-                <thead>
-                    <i class="text-center fa fa-table"></i>
-                    <tr>
-                      <th>Symbol</th>
-                      <th>Sector</th>
-                      <th>High</th>
-                      <th>Low</th>
-                      <th>Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  <% current_user.stocks.each do |stock| %>
-                    <tr>
-                      <td><%= stock.symbol %></td>
-                      <td><%= stock.sector %></td>
-                      <td><%= stock.high %></td>
-                      <td><%= stock.low %></td>
-                      <td><%= stock.price %></td>
-                      <td><%= link_to 'Edit', edit_stock_path(stock) %></td>
-                      <td><p><%= link_to 'Destroy', stock_path(stock), method: :delete, data: { confirm: 'Are you sure?' } %></p></td>
+       <div class="row">
+            <div class="card-header text-right col-3"></div>
+            <div class="card-header text-center col-6"><strong>Portfolios</strong></div>
+            <div class="card-header text-right col-3"><%= link_to 'Sign out', destroy_user_session_path, method: :delete%>&nbsp&nbsp</div>
+         </div><!--ending div for "row"-->
 
-                    </tr>
-                  <% end %>
-                </tbody>
+        <div class="card-body">
+          <div class='form-group'>
+            <% @portfolios.each do |portfolio| %>
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                 <thead>
+                      <strong><%= portfolio.name %></strong>
+                   <tr>
+                    <th>Ticker</th>
+                    <th>Price</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                  <% portfolio.stocks.each do |a|%>
+                   <tr>
+                     <td><%= a.ticker %></td>
+                     <td><%=a.price%></td>
+                   </tr>
+                  <%end%>
+                 </tbody>
               </table>
-              <%= link_to 'Add Stocks', new_stock_path %>
-
-
-              <% current_user.stocks.each do |post| %>
-                <%= render partial: "stock", locals: {post: post} %>
-              <% end %>
-
-              <script type="text/javascript" charset="utf-8">
-                  $(function () {
-                    $(".js-more").on('click', function() {
-                      var id = $(this).data("id");
-                      $.getJSON("/stocks/" + id + "/post_data", function(data) {
-
-                        $("#body-" + id).html(data["symbol"]);
-                      });
-                    });
-                  });
-                </script>
-
-           </div>
-         </div>
-       </div>
-    </div>
-  </div>
-  <%end%>
-</body>
+              <%= link_to 'Add stock', new_portfolio_assignment_path(portfolio) %>  |
+              <%= link_to 'Edit Portfolio Holdings', assignments_path(portfolio) %>  |
+              <%= link_to 'Delete Portfolio', portfolio, method: :delete, data: {confirm: 'Really?'} %><br><br>
+            <%end%>
+          </div><!--ending div for "form-group"-->
+        </div><!--ending div for "card-body"-->
+    </div><!-- ending div for "card card-login mx-auto mt-5"-->
+      <%= link_to 'Create a New Portfolio', new_portfolio_path %> | <%= link_to 'Create a new Stock', new_stock_path%>
+  </div><!--ending div for "container text-center"-->
+</body><!--ending body "bg-dark"-->

@@ -1,18 +1,12 @@
-<center>
-  <div class="container">
-    <div class="card-body">
-      <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <%= link_to 'Home', portfolios_path %>
-          </li>
-          <li class="breadcrumb-item">
-            <%= link_to 'Show', stock_path(@stock) %>
-          </li>
-        <li class="breadcrumb-item active">Edit</li>
-      </ol>
+<div class="container text-center">
+  <div class="card card-login mx-auto mt-5">
+    <div class="card-header text-center"><strong>Edit Portfolio Name</strong></div>
+      <div class="card-body text-center">
+        <%= render 'form', portfolio: @portfolio %>
 
-      <%= render 'form' %>
-
+        <%= link_to 'Show', @portfolio %> |
+        <%= link_to 'Home', portfolios_path %>
+      </div>
     </div>
   </div>
-</center>
+</div>
