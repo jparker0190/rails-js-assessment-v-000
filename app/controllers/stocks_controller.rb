@@ -5,15 +5,13 @@ class StocksController < ApplicationController
  # GET /stocks
  def index
    @stocks = Stock.all
+    respond_to do |format|
+        format.json { render json: @stocks }
+        format.html { render :index }
+    end
  end
- def ticker
-  @stock = Stock.find(params[:id])
-  render plain: @stock.ticker
- end
- def price
-  @stock = Stock.find(params[:id])
-  render plain: @stock.price
- end
+
+
 
  # GET /stocks/:id
  def show
