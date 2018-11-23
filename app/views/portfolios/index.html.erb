@@ -3,7 +3,7 @@
     <div class="card card-login mx-auto mt-5">
        <div class="row">
             <div class="card-header text-right col-3"></div>
-            <div class="card-header text-center col-6"><strong>Portfolios</strong></div>
+            <div class="card-header text-center col-6"><strong>Current Portfolios</strong></div>
             <div class="card-header text-right col-3"><%= link_to 'Sign out', destroy_user_session_path, method: :delete%>&nbsp&nbsp</div>
          </div><!--ending div for "row"-->
 
@@ -34,6 +34,44 @@
           </div><!--ending div for "form-group"-->
         </div><!--ending div for "card-body"-->
     </div><!-- ending div for "card card-login mx-auto mt-5"-->
-      <%= link_to 'Create a New Portfolio', new_portfolio_path %> | <%= link_to 'Create a new Stock', new_stock_path%>
+<br>
+    <button type='button' class='btn btn-light'>  <%= link_to 'Create a New Portfolio', new_portfolio_path %></button> | 
+
+      <!-- Button trigger modal -->
+        <button onclick="getStocks();" type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">All available Stocks</button>
+
+        <!-- Modal -->
+        <div class="modal fade text-center" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">All Available Stocks</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <div class="modal-body">
+                  <table class="table table-bordered" id="stockTable" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>Ticker</th>
+                        <th>Price</th>
+                       <!-- <th>Functions</th>-->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <div id="moreInfo"><p></p></div>
+                    </tbody>
+                  </table>
+                  <hr>
+                  <%= link_to 'Create a new Stock', new_stock_path%>
+                </div>
+                
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>              </div>
+            </div>
+          </div>
+        </div>
+        <!--Modal-->
   </div><!--ending div for "container text-center"-->
 </body><!--ending body "bg-dark"-->

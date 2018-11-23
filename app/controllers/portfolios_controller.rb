@@ -25,17 +25,8 @@ class PortfoliosController < ApplicationController
  # POST /portfolios
 
  def create
-   @portfolio = current_user.portfolios.new(portfolio_params)
-
-   respond_to do |format|
-     if @portfolio.save
-       format.html { redirect_to @portfolio, notice: 'Portfolio was successfully created.' }
-       format.json { render :show, status: :created, location: @portfolio }
-     else
-       format.html { render :new }
-       format.json { render json: @portfolio.errors, status: :unprocessable_entity }
-     end
-   end
+   @portfolio = current_user.portfolios.create(portfolio_params)
+   render json: @portfolio, status: 201
  end
 
  # PATCH/PUT /portfolios/:id

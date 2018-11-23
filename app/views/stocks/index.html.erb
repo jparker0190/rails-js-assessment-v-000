@@ -20,8 +20,8 @@
                 </thead>
 
                 <tbody>
-                  <!--<% @stocks.each do |stock| %>
-                    <tr id=>
+                  <% @stocks.each do |stock| %>
+                    <tr>
                       <td><%= stock.ticker %></td>
                       <td><%= stock.price %></td>
                       <td><%= link_to 'Show', stock %> | <%= link_to 'Edit', edit_stock_path(stock) %> | <%= link_to 'Destroy', stock, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -31,102 +31,11 @@
               </table>
               <br>
             <%= link_to 'Home', portfolios_path %>
-          </div>ending div for "form-group"
-        </div>ending div for "card-body"
-    </div> ending div for "card card-login mx-auto mt-5"
-  <%= link_to 'New Stock', new_stock_path %>-->
+          </div><!--ending div for "form-group"-->
+        </div><!--ending div for "card-body"-->
+    </div><!-- ending div for "card card-login mx-auto mt-5"-->
+  <%=link_to 'New Stock', new_stock_path %>
 </body><!--ending body "bg-dark"-->
 
-<!--<% @stocks.each do |product| %>
-  <div id="product-<%= product.id %>"><%= truncate(product.ticker) %></div>
-  <button class="js-more" data-id="<%= product.id %>">More Info</button>
-<% end %>
 
-<script type="text/javascript" charset="utf-8">
-$(function() {
-  $(".js-more").on("click", function() {
-    var id = $(this).data("id");
-    $.get("/stocks/" + id + "/ticker", function(ticker) {
-      $.get("/stocks/" + id + "/price", function(price) {
-        var inventoryText = "<strong>Available</strong>";
-        var descriptionText = "<p>" + ticker + "</p><p>" + price + "</p>";
-        $("#product-" + id).html(descriptionText);
-      });
-    });
-  });
-});
-</script>-->
-<div id="listArea"></div>
-<div id="moreInfo"><p></p></div>
-<div class="content">
-      <h3>Directory</h3>
-      <ul>
-        <li><button onclick="getStocks();">List all Ships</button></li>
-        <li><%= link_to "go to Assignments", assignments_path %></li>
-        </ul>
-    </div>
 
-<script>
-class Stock {
- constructor(stockJson) {
-     this.id = stockJson.id;
-     this.ticker = stockJson.ticker;
-     this.price = stockJson.price;
- 
- };
- renderStock() {
-     return 'Ticker: <a href="#" onclick="getStockInfo(' + this.id + ');">' + this.ticker + '</a>, Price: ' + this.price;
- };
-};
-
-let allStocks = [];
-
-function getStocks() {
- let stockList = document.querySelector("#listArea");
- let stockUl = document.createElement("ul");
- stockUl.setAttribute("id", "stockList");
- stockList.innerHTML = "<h3>All Stocks</h3>";
- stockList.appendChild(stockUl);
- 
- // clear out the moreInfo section
- let moreInfo = document.querySelector("#moreInfo");
- moreInfo.innerHTML = '<p></p>';
-
- const requestUrl = "/stocks";
- const request = new XMLHttpRequest();
- allStocks = []; // start with an empty list
- 
- request.open('GET', requestUrl);
- request.responseType = 'json';
- request.send();
- request.onload = function() {
-     request.response.forEach(function(price) {
-         let stock = new Stock(price);
-         allStocks.push(stock);
-         let stockLi = document.createElement("li");
-         stockLi.innerHTML = stock.renderStock();
-         stockUl.appendChild(stockLi);
-     });
- };
-
- let newStockButton = document.createElement("button");
- newStockButton.innerHTML = '<a href="/stocks/new"><button>Create New Stock</button></a>';
- stockList.append(newStockButton);
-};
-
-function getStockInfo(stockId) {
- let moreInfo = document.querySelector("#moreInfo");
- const request = new XMLHttpRequest();
- const requestUrl = "/stocks/"+`${stockId}`;
- request.open('GET', requestUrl);
- request.responseType = 'json';
- request.send();
- request.onload = function() {
-     let stock = new Stock(request.response);
-     moreInfo.innerHTML = '<br><h3>Additional Information for '+stock.ticker+'</h3><p><strong>Price: </strong>'+stock.price+stock.id+'">Manage Stock</a>';
-
-     addLink = document.createElement("a");
-     addLink.innerHTML = '<a href="/assignments">Manage Assignments</a>';
- };
-};
-</script>

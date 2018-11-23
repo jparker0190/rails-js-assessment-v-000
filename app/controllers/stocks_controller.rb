@@ -15,8 +15,12 @@ class StocksController < ApplicationController
 
  # GET /stocks/:id
  def show
-  @stock = Stock.find(params(:id))
-  render json: @stocks, status: 200
+  @stock = Stock.find_by_id(params[:id])
+  respond_to do |format|
+    format.json { render json: @stock }
+    format.html { render :show }
+end
+
  end
 
  # GET /stocks/new
