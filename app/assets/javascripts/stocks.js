@@ -64,3 +64,18 @@ function getStockInfo(stockId) {
      addLink.innerHTML = '<a href="/assignments">Manage Assignments</a>';
  };
 };
+$(function () {
+    $('form').submit(function(event) {
+      //prevent form from submitting the default way
+      event.preventDefault();
+ 
+      var values = $(this).serialize();
+ 
+      var posting = $.post('/stocks', values);
+ 
+      posting.done(function(data) {
+        var post = data;
+        $("#Stockpick").text(post["ticker"]+" @ $" +post["price"]+".00 is now a stock you can add to a portfolio.");
+      });
+    });
+  });

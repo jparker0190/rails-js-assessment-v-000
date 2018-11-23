@@ -34,17 +34,8 @@ end
 
  # POST /stocks
  def create
-   @stock = Stock.new(stock_params)
-
-   respond_to do |format|
-     if @stock.save
-       format.html { redirect_to @stock, notice: 'Stock was successfully created.' }
-       format.json { render :show, status: :created, location: @stock }
-     else
-       format.html { render :new }
-       format.json { render json: @stock.errors, status: :unprocessable_entity }
-     end
-   end
+   @stock = Stock.create(stock_params)
+   render json: @stock, status: 201
  end
 
  # PATCH/PUT /stocks/:id

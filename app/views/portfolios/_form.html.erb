@@ -20,24 +20,8 @@
     </div>
   <% end%>
 </body>
-<div id="postResult">
-  <h2 id="postTitle"></h2>
+<div id="showPortfolio">
+  <br>
+  <p id="Portfolioname"></p>
 </div>
  
-<script type="text/javascript" charset="utf-8">
-  $(function () {
-    $('form').submit(function(event) {
-      //prevent form from submitting the default way
-      event.preventDefault();
- 
-      var values = $(this).serialize();
- 
-      var posting = $.post('/portfolios', values);
- 
-      posting.done(function(data) {
-        var post = data;
-        $("#postTitle").text(post["name"]);
-      });
-    });
-  });
-</script>

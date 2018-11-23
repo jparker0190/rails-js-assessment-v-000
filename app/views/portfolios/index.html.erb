@@ -35,17 +35,15 @@
         </div><!--ending div for "card-body"-->
     </div><!-- ending div for "card card-login mx-auto mt-5"-->
 <br>
-    <button type='button' class='btn btn-light'>  <%= link_to 'Create a New Portfolio', new_portfolio_path %></button> | 
-
-      <!-- Button trigger modal -->
-        <button onclick="getStocks();" type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">All available Stocks</button>
+    <%= link_to 'Create Portfolio', new_portfolio_path, class: 'btn btn-light'%>
+    <button onclick="getStocks();" type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">All available Stocks</button>
 
         <!-- Modal -->
-        <div class="modal fade text-center" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">All Available Stocks</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Stocks</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -63,12 +61,13 @@
                       <div id="moreInfo"><p></p></div>
                     </tbody>
                   </table>
-                  <hr>
-                  <%= link_to 'Create a new Stock', new_stock_path%>
+                  
                 </div>
                 
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>              </div>
+                <%= link_to 'Create a new Stock', new_stock_path, class: 'btn btn-secondary'%>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
             </div>
           </div>
         </div>
