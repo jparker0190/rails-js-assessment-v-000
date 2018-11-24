@@ -1,11 +1,18 @@
 <div class="container text-center">
+<br>
+<!--breadcrumbs-->
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to 'Home', portfolios_path%></li>
+    <li class="breadcrumb-item"><%= link_to 'Show All Stocks', stocks_path %></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Stock</li>
+  </ol>
+</nav>
+<!--breadcrumbs-->
   <div class="card card-login mx-auto mt-5">
     <div class="card-header text-center">Edit Stock</div>
       <div class="card-body text-center">
         <%= render 'form', stock: @stock %>
-        <%= link_to 'Show', @stock %> |
-        <%= link_to 'Back', stocks_path %> |
-        <%= link_to 'Home', portfolios_path%>
       </div>
     </div>
   </div>
