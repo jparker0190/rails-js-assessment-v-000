@@ -26,7 +26,7 @@ class PortfoliosController < ApplicationController
 
  def create
    @portfolio = current_user.portfolios.create(portfolio_params)
-   render json: @portfolio, status: 201
+    render json: @portfolio
  end
 
  # PATCH/PUT /portfolios/:id
