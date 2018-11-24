@@ -1,6 +1,16 @@
 <!--<p id="notice"><%= notice %></p>-->
-<body class="bg-dark"> 
   <div class="container text-center">
+<br>
+  <!--breadcrumbs-->
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/portfolios">Home</a></li>
+    <li class="breadcrumb-item"><%=link_to 'Create a New Stock', new_stock_path 
+    %></li>
+    <li class="breadcrumb-item active" aria-current="page">All Stocks</li>
+  </ol>
+</nav>
+<!--breadcrumbs-->
     <div class="card card-login mx-auto mt-5">
        <div class="row">
             <div class="card-header text-right col-3"></div>
@@ -30,12 +40,10 @@
                 </tbody>
               </table>
               <br>
-            <%= link_to 'Home', portfolios_path %>
           </div><!--ending div for "form-group"-->
         </div><!--ending div for "card-body"-->
     </div><!-- ending div for "card card-login mx-auto mt-5"-->
-  <%=link_to 'New Stock', new_stock_path %>
-</body><!--ending body "bg-dark"-->
+  
 
 
 
