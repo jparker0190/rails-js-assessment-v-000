@@ -5,8 +5,6 @@ class PortfoliosController < ApplicationController
  #only shows the current user's portfolio
  def index
    @portfolios = current_user.portfolios.includes(:stocks).all
-
-
  end
 
  # GET /portfolios/:id
@@ -26,7 +24,7 @@ class PortfoliosController < ApplicationController
 
  def create
    @portfolio = current_user.portfolios.create(portfolio_params)
-    render json: @portfolio
+   render json: @portfolio, status:201
  end
 
  # PATCH/PUT /portfolios/:id
