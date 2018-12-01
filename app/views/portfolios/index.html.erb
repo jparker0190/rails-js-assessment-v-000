@@ -17,39 +17,139 @@
         <div class="card-body">
           <div class='form-group'>
             <% @portfolios.each do |portfolio| %>
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                 <thead>
-                      <strong><%= portfolio.name %></strong>
-                   <tr>
-                    <th>Ticker</th>
-                    <th>Price</th>
-                   </tr>
-                 </thead>
-                 <tbody>
+            <strong><%= portfolio.name %> Portfolio</strong>
+              <ul class="list-group list-group-flush">
                   <% portfolio.stocks.each_with_index do |a, index|%>
-                   <tr>
-                     <td>
-                     <div class="accordion" id="accordionExample">
-                      <div class="card">
-                        <div class="card-header" id="headingThree">
-                          <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree<%=index.to_s%>" aria-expanded="false" aria-controls="collapseThree<%=index.to_s%>">
-                              <%= a.ticker %>
-                            </button>
-                          </h5>
-                        </div>
-                        <div id="collapseThree<%=index.to_s%>" class="collapse<%a.id%>" aria-labelledby="headingThree" data-parent="#accordionExample">
-                          <div class="card-body">
-                            Anim pariatur cliche reprehenderit, 
-                          </div>
-                        </div>
-                      </div>
-                    </div></td>
-                     <td><%=a.price%></td>
-                   </tr>
+                      <div class="accordion" id="accordionExample">
+                        <div>
+                          <div id="headingThree">
+                            <h5 class="mb-0">
+                              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree<%=index.to_s%>" aria-expanded="false" aria-controls="collapseThree<%=index.to_s%>">
+                                
+                                 <li class="list-group-item"><%= a.ticker %></li>
+                              </button>
+                            </h5>
+                          </div><!--ending div for headingThree-->
+                          <div id="collapseThree<%=index.to_s%>" class="collapse<%a.id%>" aria-labelledby="headingThree" data-parent="#accordionExample">
+                            <div class="card-body">
+                              <!--adding the carousel-->
+                              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                  <div class="carousel-item active">
+                                    <table class="table table-sm">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">First</th>
+                                          <th scope="col">Last</th>
+                                          <th scope="col">Handle</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                          <th scope="row">1</th>
+                                          <td>Mark</td>
+                                          <td>Otto</td>
+                                          <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">2</th>
+                                          <td>Jacob</td>
+                                          <td>Thornton</td>
+                                          <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">3</th>
+                                          <td colspan="2">Larry the Bird</td>
+                                          <td>@twitter</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  <div class="carousel-item">
+                                    <table class="table table-sm">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">First</th>
+                                          <th scope="col">Last</th>
+                                          <th scope="col">Handle</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                          <th scope="row">1</th>
+                                          <td>Mark</td>
+                                          <td>Otto</td>
+                                          <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">2</th>
+                                          <td>Jacob</td>
+                                          <td>Thornton</td>
+                                          <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">3</th>
+                                          <td colspan="2">Larry the Bird</td>
+                                          <td>@twitter</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  <div class="carousel-item">
+                                    <table class="table table-sm">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">First</th>
+                                          <th scope="col">Last</th>
+                                          <th scope="col">Handle</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                          <th scope="row">1</th>
+                                          <td>Mark</td>
+                                          <td>Otto</td>
+                                          <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">2</th>
+                                          <td>Jacob</td>
+                                          <td>Thornton</td>
+                                          <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">3</th>
+                                          <td colspan="2">Larry the Bird</td>
+                                          <td>@twitter</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                  <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                  <span class="sr-only">Next</span>
+                                </a>
+                              </div>
+                              <!--ending carousel-->
+                            </div><!--ending div for card-body-->
+                          </div><!--ending div for collapseThree-->
+                        </div><!--ending div for empty div-->
+                      </div><!--ending div for accordion-->
                   <%end%>
-                 </tbody>
-              </table>
+                  </ul>
               <%= link_to 'Add stock', new_portfolio_assignment_path(portfolio) %>  |
               <%= link_to 'Edit Portfolio Holdings', assignments_path(portfolio) %>  |
               <%= link_to 'Delete Portfolio', portfolio, method: :delete, data: {confirm: 'Really?'} %><br><br>
