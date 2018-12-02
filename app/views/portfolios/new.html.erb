@@ -15,28 +15,26 @@
             <%= render 'form', portfolio: @portfolio %>
             
       </div>
-       <div id="showPortfolio">
-              <br>
-        <p id="Portfolioname"></p>
-       </div>
-  </div><!--ending div for 'card card-login mx-auto mt-5-->
-</div><!--ending div for 'container text-cent'-->
-
-<script type= "text/javascript" charset="utf-8">
-    $(function () {
-        $('form').submit(function(event) {
-          //prevent form from submitting the default way
-          event.preventDefault();
-    
-          var values = $(this).serialize();
-    
-          var posting = $.post('/portfolios', values);
-    
-          posting.done(function(data) {
-            var post = data;
-            $("#Portfolioname").text(post["name"]+" is now one of your portfolios ");
-            
-          });
-        });
+        <div id="Portfolioname">
+  </div>
+    </div>
+  </div>
+</div>
+<script>
+$(function () {
+    $('form').submit(function(event) {
+      //prevent form from submitting the default way
+      event.preventDefault();
+ 
+      var values = $(this).serialize();
+ 
+      var posting = $.post('/portfolios', values);
+ 
+      posting.done(function(data) {
+        var post = data;
+        $("#Portfolioname").text(post["name"]+" is now one of your portfolios ");
+        $("#message").text("is now one of your portfolios");
       });
+    });
+  });
   </script>

@@ -23,15 +23,12 @@ class PortfoliosController < ApplicationController
  # POST /portfolios
 
  def create
-   @portfolio = current_user.portfolios.new(portfolio_params)
-   respond_to do |format|
+   @portfolio = current_user.portfolios.create(portfolio_params)
     if @portfolio.save
       format.json { render json: @portfolio }
     else
-      format.html { render :new }
-      format.json { render json: @portfolio.errors, status: :unprocessable_entity }
+      render json: @portfolio.errors, status: :unprocessable_entity
     end
-  end
  end
 
  # PATCH/PUT /portfolios/:id
@@ -41,7 +38,6 @@ class PortfoliosController < ApplicationController
        format.html { redirect_to @portfolio, notice: 'Portfolio was successfully updated.' }
        format.json { render :show, status: :ok, location: @portfolio }
      else
-       format.html { render :edit }
        format.json { render json: @portfolio.errors, status: :unprocessable_entity }
      end
    end
