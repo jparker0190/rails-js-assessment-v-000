@@ -1,12 +1,12 @@
   <%= form_with(model: portfolio, local: true) do |form| %>
-    <% if portfolio.errors.any? %>
-      <div id="error_explanation">
-         <h2><%= pluralize(portfolio.errors.count, "error") %> prohibited this portfolio from being saved:</h2>
-         <ul>
+      <% if portfolio.errors.any? %>
+        <div id="error_explanation">
           <% portfolio.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
+           <div class="alert alert-danger alert-dismissible fade show" role="alert">
+             <strong><%= message %></strong>
+             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           </div>
           <% end %>
-         </ul>
       </div>
     <% end %>
 
@@ -18,8 +18,5 @@
        <%= form.submit class: 'btn btn-primary btn-block' %>
     </div>
   <% end%>
-<div id="showPortfolio">
-  <br>
-  <p id="Portfolioname"></p>
-</div>
+
  

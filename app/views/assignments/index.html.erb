@@ -31,7 +31,7 @@
                   <tr>
                     <td><%= assignment.stock.ticker %></td>
                     <td><%= assignment.portfolio.name %></td>
-                    <td><%= link_to 'Show', assignment %> | <%= link_to 'Edit', edit_assignment_path(assignment) %> | <%= link_to 'Destroy', assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    <td><%= link_to 'Show', assignment %> | <%= link_to 'Edit', edit_portfolio_assignment_path(assignment.portfolio,assignment) %> | <%= link_to 'Destroy', assignment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                   </tr>
                 <% end %>
               </tbody>

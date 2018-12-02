@@ -11,8 +11,6 @@ class StocksController < ApplicationController
     end
  end
 
-
-
  # GET /stocks/:id
  def show
   @stock = Stock.find_by_id(params[:id])

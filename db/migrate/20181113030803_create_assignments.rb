@@ -1,6 +1,7 @@
 class CreateAssignments < ActiveRecord::Migration[5.2]
   def change
     create_table :assignments do |t|
+      t.string :description
       t.integer :stock_id
       t.integer :portfolio_id
       t.timestamps

@@ -28,32 +28,10 @@ class SessionsController < ApplicationController
      end
  end
 
- def login
-     @user = Crew.find_by(name: params[:user][:name])
-     if @user && @user.authenticate(params[:user][:password])
-         session[:user_id] = @user.id
-         redirect_to home_path
-     else
-         redirect_to login_path
-     end
- end
- 
- def logout
-     if session[:user_id]
-         session.clear
-         redirect_to root_path
-     else
-         redirect_to home_path
-     end
- end
-
  private
 
  def auth
      request.env['omniauth.auth']
  end
 
- def set_crew
-     @user = User.find_by(:id => session[:user_id])
- end
 end
