@@ -13,7 +13,6 @@
       <% end %>
 
       <div class="form-group text-center">
-      <%= form.text_field :description, autofocus: true, class: 'form-control', placeholder: "Enter a description" %>
         <br>
         <%=form.label "Pick which portfolio"%>
         <%= form.select(:portfolio_id) do %>
@@ -27,6 +26,7 @@
         <%= form.select(:stock_id) do%>
         <%= options_from_collection_for_select(Stock.all, :id, :ticker, :selected => @assignment.stock_id) %>
         <%end%>
+        <%= form.number_field :shares, autofocus: true, class: 'form-control', placeholder: "How many shares?" %>
       </div>
 
       <div class="actions">

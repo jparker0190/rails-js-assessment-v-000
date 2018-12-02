@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2018_11_14_020556) do
 
   create_table "assignments", force: :cascade do |t|
-    t.string "description"
+    t.integer "shares"
     t.integer "stock_id"
     t.integer "portfolio_id"
     t.datetime "created_at", null: false
