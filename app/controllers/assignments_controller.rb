@@ -25,7 +25,7 @@ class AssignmentsController < ApplicationController
  end
 
  def create
-   @assignment = Assignment.new(assignment_params)
+   @assignment = Assignment.create(assignment_params)
 
    respond_to do |format|
      if @assignment.save

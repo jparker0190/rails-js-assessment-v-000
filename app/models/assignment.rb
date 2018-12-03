@@ -1,5 +1,5 @@
 class Assignment < ApplicationRecord
-    validates :description, presence: true
+    validates :shares, presence: true
     belongs_to :stock
     belongs_to :portfolio
     def self.alphabatize

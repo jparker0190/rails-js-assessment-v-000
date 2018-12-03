@@ -25,7 +25,7 @@ class PortfoliosController < ApplicationController
  def create
    @portfolio = current_user.portfolios.create(portfolio_params)
     if @portfolio.save
-      format.json { render json: @portfolio }
+      render json: @portfolio, status: 201
     else
       render json: @portfolio.errors, status: :unprocessable_entity
     end
