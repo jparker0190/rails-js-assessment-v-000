@@ -13,7 +13,6 @@
             <div class="card-header text-center col-6"><strong>Current Portfolios</strong></div>
             <div class="card-header text-right col-3"><%= link_to 'Sign out', destroy_user_session_path, method: :delete%>&nbsp&nbsp</div>
          </div><!--ending div for "row"-->
-
         <div class="card-body">
           <div class='form-group'>
             <% @portfolios.each do |portfolio| %>
