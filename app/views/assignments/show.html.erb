@@ -11,18 +11,12 @@
 </nav>
 <!--breadcrumbs-->
     <div class="card card-login mx-auto mt-5">
-      <div class="card-header text-center "><strong>Here is your Portfolio</strong> </div>
+      <div class="card-header text-center "><strong>Trade Confirmation</strong> </div>
         <div class="card-body">
           <p id="notice"><%= notice %></p>
 
           <p>
-            <strong>Ticker:</strong>
-            <%= @assignment.stock.ticker %>
-          </p>
-
-          <p>
-            <strong>Portfolio:</strong>
-            <%= @assignment.portfolio.name %>
+            <strong>Trade: </strong><%=@assignment.direction%> <%=@assignment.shares%> shares of <%= @assignment.stock.ticker %> into Portfolio <%= @assignment.portfolio.name %>
           </p>
 
         </div>
