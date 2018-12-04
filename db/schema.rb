@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2018_11_14_020556) do
 
   create_table "assignments", force: :cascade do |t|
+    t.string "direction", default: "Buy"
     t.integer "shares"
     t.integer "stock_id"
     t.integer "portfolio_id"

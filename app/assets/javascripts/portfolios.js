@@ -14,3 +14,11 @@ $(function () {
       });
     });
   });
+  var theURL = "https://api.iextrading.com/1.0/tops?symbols=SNAP,fb,AIG%2b";
+  $(document).ready(function() {
+   fetch(url)
+   .then(response => response.json())
+   .then(json =>
+    document.getElementById("symbol").innerHTML = `<td>${json[0]['symbol']}</td>`
+    )
+  })

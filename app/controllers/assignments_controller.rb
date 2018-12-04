@@ -28,14 +28,14 @@ class AssignmentsController < ApplicationController
    @assignment = Assignment.create(assignment_params)
 
    respond_to do |format|
-     if @assignment.save
-       format.html { redirect_to @assignment, notice: 'Assignment was successfully created.' }
-       format.json { render :show, status: :created, location: @assignment }
-     else
-       format.html { render :new }
-       format.json { render json: @assignment.errors, status: :unprocessable_entity }
-     end
-   end
+    if @assignment.save
+      format.html { redirect_to @assignment, notice: 'Assignment was successfully created.' }
+      format.json { render :show, status: :created, location: @assignment }
+    else
+      format.html { render :new }
+      format.json { render json: @assignment.errors, status: :unprocessable_entity }
+    end
+  end
  end
 
  # PATCH/PUT /assignments/1
@@ -68,6 +68,6 @@ class AssignmentsController < ApplicationController
 
  
    def assignment_params
-     params.require(:assignment).permit(:shares,:stock_id, :portfolio_id)
+     params.require(:assignment).permit(:direction,:shares,:stock_id, :portfolio_id)
    end
 end

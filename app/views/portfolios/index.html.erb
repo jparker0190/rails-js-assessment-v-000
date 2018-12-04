@@ -17,6 +17,7 @@
         <div class="card-body">
           <div class='form-group'>
             <% @portfolios.each do |portfolio| %>
+            
             <strong><%= portfolio.name %> Portfolio</strong>
               <ul class="list-group list-group-flush">
                   <% portfolio.stocks.each_with_index do |a, index|%>
@@ -27,123 +28,59 @@
                               <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree<%=index.to_s%>" aria-expanded="false" aria-controls="collapseThree<%=index.to_s%>">
                                 
                                  <li class="list-group-item"><%= a.ticker %></li>
-                                 <li class="list-group-item"><%= a.shares %></li>
+                                 
                               </button>
                             </h5>
                           </div><!--ending div for headingThree-->
                           <div id="collapseThree<%=index.to_s%>" class="collapse<%a.id%>" aria-labelledby="headingThree" data-parent="#accordionExample">
                             <div class="card-body">
                               <!--adding the carousel-->
-                              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                <ol class="carousel-indicators">
-                                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                                </ol>
-                                <div class="carousel-inner">
-                                  <div class="carousel-item active">
-                                    <table class="table table-sm">
-                                      <thead>
-                                        <tr>
-                                          <th scope="col">#</th>
-                                          <th scope="col">First</th>
-                                          <th scope="col">Last</th>
-                                          <th scope="col">Handle</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        <tr>
-                                          <th scope="row">1</th>
-                                          <td>Mark</td>
-                                          <td>Otto</td>
-                                          <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                          <th scope="row">2</th>
-                                          <td>Jacob</td>
-                                          <td>Thornton</td>
-                                          <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                          <th scope="row">3</th>
-                                          <td colspan="2">Larry the Bird</td>
-                                          <td>@twitter</td>
-                                        </tr>
-                                      </tbody>
-                                    </table>
-                                  </div>
-                                  <div class="carousel-item">
-                                    <table class="table table-sm">
-                                      <thead>
-                                        <tr>
-                                          <th scope="col">#</th>
-                                          <th scope="col">First</th>
-                                          <th scope="col">Last</th>
-                                          <th scope="col">Handle</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        <tr>
-                                          <th scope="row">1</th>
-                                          <td>Mark</td>
-                                          <td>Otto</td>
-                                          <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                          <th scope="row">2</th>
-                                          <td>Jacob</td>
-                                          <td>Thornton</td>
-                                          <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                          <th scope="row">3</th>
-                                          <td colspan="2">Larry the Bird</td>
-                                          <td>@twitter</td>
-                                        </tr>
-                                      </tbody>
-                                    </table>
-                                  </div>
-                                  <div class="carousel-item">
-                                    <table class="table table-sm">
-                                      <thead>
-                                        <tr>
-                                          <th scope="col">#</th>
-                                          <th scope="col">First</th>
-                                          <th scope="col">Last</th>
-                                          <th scope="col">Handle</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        <tr>
-                                          <th scope="row">1</th>
-                                          <td>Mark</td>
-                                          <td>Otto</td>
-                                          <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                          <th scope="row">2</th>
-                                          <td>Jacob</td>
-                                          <td>Thornton</td>
-                                          <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                          <th scope="row">3</th>
-                                          <td colspan="2">Larry the Bird</td>
-                                          <td>@twitter</td>
-                                        </tr>
-                                      </tbody>
-                                    </table>
-                                  </div>
-                                </div>
-                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                  <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                  <span class="sr-only">Next</span>
-                                </a>
-                              </div>
+                              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                               <li class="nav-item">
+                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                               </li>
+                               <li class="nav-item">
+                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                               </li>
+                               <li class="nav-item">
+                                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                               </li>
+                             </ul>
+                             <div class="tab-content" id="myTabContent">
+                               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                               <table class="table table-hover">
+                                 <thead>
+                                   <tr>
+                                     <th scope="col">#</th>
+                                     <th scope="col">First</th>
+                                     <th scope="col">Last</th>
+                                     <th scope="col">Handle</th>
+                                   </tr>
+                                 </thead>
+                                 <tbody>
+                                   <tr>
+                                     <th scope="row">1</th>
+                                     <td id="symbol"></td>
+                                     <td>Otto</td>
+                                     <td>@mdo</td>
+                                   </tr>
+                                   <tr>
+                                     <th scope="row">2</th>
+                                     <td>Jacob</td>
+                                     <td>Thornton</td>
+                                     <td>@fat</td>
+                                   </tr>
+                                   <tr>
+                                     <th scope="row">3</th>
+                                     <td colspan="2">Larry the Bird</td>
+                                     <td>@twitter</td>
+                                   </tr>
+                                 </tbody>
+                               </table>
+                               </div>
+                               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                               <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                             </div>
                               <!--ending carousel-->
                             </div><!--ending div for card-body-->
                           </div><!--ending div for collapseThree-->
