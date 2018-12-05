@@ -3,6 +3,7 @@ class AssignmentsController < ApplicationController
 
  # GET /assignments
  def index
+  @portfolios = current_user.portfolios.includes(:stocks).all
    @assignments = Assignment.all
    if params[:portfolio_id]
     @assignment = Assignment.new(portfolio_id: params[:portfolio_id])
