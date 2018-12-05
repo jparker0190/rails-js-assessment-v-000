@@ -9,7 +9,7 @@ class AssignmentsController < ApplicationController
 
  # GET /assignments/1
  def show
-  @market_value = Assignment.find(params[:shares]) * Stock.find(params[:price])
+  
  end
 
  # GET /assignments/new
