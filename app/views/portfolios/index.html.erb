@@ -1,5 +1,21 @@
   <div class="container text-center">
   <br>
+
+<!--adding the carousel for the portfolios homepage-->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+<% @portfolios.each do |portfolio| %>
+  <li class="nav-item">
+    <a class="nav-link" id="home-tab" data-toggle="tab" href="#home<%=portfolio.id%>" role="tab" aria-controls="home" aria-selected="true"><%=portfolio.name%></a>
+  </li>
+<%end%>
+</ul>
+<div class="tab-content" id="myTabContent">
+<% @portfolios.each do |portfolio| %>
+  <div class="tab-pane fade" id="home<%=portfolio.id%>" role="tabpanel" aria-labelledby="home-tab"><%=portfolio.name%></div>
+<%end%>
+</div>
+<!--adding the carousel for the portfolios homepage-->
+
 <!--breadcrumb-->
    <nav aria-label="breadcrumb">
      <ol class="breadcrumb">
@@ -18,7 +34,7 @@
         <div class="card-body">
           <div class='form-group'>
 
-       <% @portfolios.each_with_index do |portfolio, indexs| %>
+       <% @portfolios.each do |portfolio| %>
 
          <div class="card"><!--portfolio-card-->
            <div class="card-body"><!--portfolio-card-body-->
