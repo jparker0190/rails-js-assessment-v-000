@@ -3,17 +3,13 @@ class AssignmentsController < ApplicationController
 
  # GET /assignments
  def index
-  @portfolios = current_user.portfolios.includes(:stocks).all
-   @assignments = Assignment.all
-   if params[:portfolio_id]
-    @assignment = Assignment.new(portfolio_id: params[:portfolio_id])
-   else
-    @assignment = Assignment.new
-   end
+    @portfolios = current_user.portfolios.includes(:stocks).all
+    @assignments = Assignment.all
  end
 
  # GET /assignments/1
  def show
+  @market_value = Assignment.find(params[:shares]) * Stock.find(params[:price])
  end
 
  # GET /assignments/new

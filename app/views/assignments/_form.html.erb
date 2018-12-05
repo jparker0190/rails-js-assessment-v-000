@@ -25,7 +25,7 @@
         <%= form.label "Assign a stock" %>
         <%=form.collection_select :stock_id, Stock.order(:ticker), :id, :ticker%>
         <%= form.number_field :shares, autofocus: true, class: 'form-control', placeholder: "How many shares?" %>
-        <%=form.radio_button :direction, "Buy", checked: true%> Long
+        <%=form.radio_button :direction, "Buy", checked: true%> Buy
         <%=form.radio_button :direction, "Sell"%> Short
       </div>
 

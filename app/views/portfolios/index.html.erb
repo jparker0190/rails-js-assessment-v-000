@@ -24,15 +24,18 @@
            <div class="card-body"><!--portfolio-card-body-->
             <strong><%= portfolio.name %> Portfolio</strong>
 <!--begin li list for Stocks in portolios-->
+<div class="container">
               <ul class="list-inline">
          <% portfolio.assignments.each_with_index do |a, index|%>
             <div class="accordion" id="accordionExample">
               <div>
                <div id="headingThree">
                 <h5 class="mb-0">
-                 <button class="btn btn-link collapsed" type="button"          data-toggle="collapse" data-target="#collapseThree<%=a.id%>" aria-expanded="false" aria-controls="collapseThree<%=a.id%>">
-                  <li class="list-inline-item"><%= a.stock.ticker %></li>
+                 <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree<%=a.id%>" aria-expanded="false" aria-controls="collapseThree<%=a.id%>">                                    
+                   <li class="list-inline-item"><%= a.stock.ticker %></li>
                    <li class="list-inline-item"><%=a.shares%></li>
+                   <li class="list-inline-item">@</li>
+                   <li class="list-inline-item">$<%=a.stock.price%>.00</li>                   
                   </button>
                  </h5>
                </div><!--ending div for headingThree-->
@@ -51,6 +54,7 @@
                       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
                      </li>
                     </ul>
+</div>                  
 <!--begin section for content inside ticker data tabs-->
                   <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -106,7 +110,6 @@
 <br>
     <%= link_to 'Create Portfolio', new_portfolio_path, class: 'btn btn-light'%>
     <button onclick="getStocks();" type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">All available Stocks</button>
-
 <!-- Modal -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
@@ -140,5 +143,6 @@
             </div>
           </div>
         </div>
+
  <!--Modal-->
-  </div><!--ending div for "container text-center"-->
+</div><!--ending div for "container text-center"-->
