@@ -1,52 +1,59 @@
   <div class="container text-center">
   <br>
-  <!--breadcrumb-->
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page">Home</li>
-  </ol>
-</nav>
+<!--breadcrumb-->
+   <nav aria-label="breadcrumb">
+     <ol class="breadcrumb">
+       <li class="breadcrumb-item active" aria-current="page">Home</li>
+     </ol>
+   </nav>
 <!--breadcrumb-->
     <div class="card card-login mx-auto mt-5">
        <div class="row">
             <div class="card-header text-right col-3"></div>
             <div class="card-header text-center col-6"><strong>Current Portfolios</strong></div>
             <div class="card-header text-right col-3"><%= link_to 'Sign out', destroy_user_session_path, method: :delete%>&nbsp&nbsp</div>
-         </div><!--ending div for "row"-->
+       </div><!--ending div for "row"-->
+
+<!--begin section for Current Portfolio-->
         <div class="card-body">
           <div class='form-group'>
-            <% @portfolios.each do |portfolio| %>
-            
+
+       <% @portfolios.each_with_index do |portfolio, indexs| %>
+
+         <div class="card"><!--portfolio-card-->
+           <div class="card-body"><!--portfolio-card-body-->
             <strong><%= portfolio.name %> Portfolio</strong>
-              <ul class="list-group list-group-flush">
-                  <% portfolio.assignments.each_with_index do |a, index|%>
-                      <div class="accordion" id="accordionExample">
-                        <div>
-                          <div id="headingThree">
-                            <h5 class="mb-0">
-                              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree<%=index.to_s%>" aria-expanded="false" aria-controls="collapseThree<%=index.to_s%>">
-                                
-                                 <li class="list-group-item"><%= a.stock.ticker %></li>
-                                 <%=a.shares%>
-                              </button>
-                            </h5>
-                          </div><!--ending div for headingThree-->
-                          <div id="collapseThree<%=index.to_s%>" class="collapse<%a.id%>" aria-labelledby="headingThree" data-parent="#accordionExample">
-                            <div class="card-body">
-                              <!--adding the carousel-->
-                              <ul class="nav nav-tabs" id="myTab" role="tablist">
-                               <li class="nav-item">
-                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
-                               </li>
-                               <li class="nav-item">
-                                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-                               </li>
-                               <li class="nav-item">
-                                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-                               </li>
-                             </ul>
-                             <div class="tab-content" id="myTabContent">
-                               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+<!--begin li list for Stocks in portolios-->
+              <ul class="list-inline">
+         <% portfolio.assignments.each_with_index do |a, index|%>
+            <div class="accordion" id="accordionExample">
+              <div>
+               <div id="headingThree">
+                <h5 class="mb-0">
+                 <button class="btn btn-link collapsed" type="button"          data-toggle="collapse" data-target="#collapseThree<%=a.id%>" aria-expanded="false" aria-controls="collapseThree<%=a.id%>">
+                  <li class="list-inline-item"><%= a.stock.ticker %></li>
+                   <li class="list-inline-item"><%=a.shares%></li>
+                  </button>
+                 </h5>
+               </div><!--ending div for headingThree-->
+<!--begin section for data inside tickers-->
+               <div id="collapseThree<%=a.id%>" class="collapse<%a.id%>" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body">
+<!--adding the carousel-->
+                  <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                     </li>
+                     <li class="nav-item">
+                      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                     </li>
+                     <li class="nav-item">
+                      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                     </li>
+                    </ul>
+<!--begin section for content inside ticker data tabs-->
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                <table class="table table-hover">
                                  <thead>
                                    <tr>
@@ -80,13 +87,15 @@
                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
                              </div>
-                              <!--ending carousel-->
+<!--ending carousel-->
                             </div><!--ending div for card-body-->
                           </div><!--ending div for collapseThree-->
                         </div><!--ending div for empty div-->
                       </div><!--ending div for accordion-->
                   <%end%>
                   </ul>
+            </div><!--portfolio-card-body-->
+           </div><!--portfolio-card-->
               <%= link_to 'Add stock', new_portfolio_assignment_path(portfolio) %>  |
               <%= link_to 'Edit Portfolio Holdings', assignments_path(portfolio) %>  |
               <%= link_to 'Delete Portfolio', portfolio, method: :delete, data: {confirm: 'Really?'} %><br><br>
@@ -98,7 +107,7 @@
     <%= link_to 'Create Portfolio', new_portfolio_path, class: 'btn btn-light'%>
     <button onclick="getStocks();" type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">All available Stocks</button>
 
-        <!-- Modal -->
+<!-- Modal -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -131,5 +140,5 @@
             </div>
           </div>
         </div>
-        <!--Modal-->
+ <!--Modal-->
   </div><!--ending div for "container text-center"-->
