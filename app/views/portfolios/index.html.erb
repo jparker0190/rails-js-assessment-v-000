@@ -19,15 +19,15 @@
             
             <strong><%= portfolio.name %> Portfolio</strong>
               <ul class="list-group list-group-flush">
-                  <% portfolio.stocks.each_with_index do |a, index|%>
+                  <% portfolio.assignments.each_with_index do |a, index|%>
                       <div class="accordion" id="accordionExample">
                         <div>
                           <div id="headingThree">
                             <h5 class="mb-0">
                               <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree<%=index.to_s%>" aria-expanded="false" aria-controls="collapseThree<%=index.to_s%>">
                                 
-                                 <li class="list-group-item"><%= a.ticker %></li>
-                                 
+                                 <li class="list-group-item"><%= a.stock.ticker %></li>
+                                 <%=a.shares%>
                               </button>
                             </h5>
                           </div><!--ending div for headingThree-->

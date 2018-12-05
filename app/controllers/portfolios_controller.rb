@@ -5,6 +5,12 @@ class PortfoliosController < ApplicationController
  #only shows the current user's portfolio
  def index
    @portfolios = current_user.portfolios.includes(:stocks).all
+   @assignments = Assignment.all
+   if params[:portfolio_id]
+    @assignment = Assignment.new(portfolio_id: params[:portfolio_id])
+   else
+    @assignment = Assignment.new
+   end
  end
 
  # GET /portfolios/:id
