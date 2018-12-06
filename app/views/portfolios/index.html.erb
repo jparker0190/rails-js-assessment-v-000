@@ -1,6 +1,14 @@
   <div class="container text-center">
   <br>
 
+<!--breadcrumb-->
+   <nav aria-label="breadcrumb">
+     <ol class="breadcrumb">
+       <li class="breadcrumb-item active" aria-current="page">Home</li>
+     </ol>
+   </nav>
+<!--breadcrumb-->
+
 <!--navbar for making portfolio display more elegant-->
 <div class="card card-login mx-auto mt-5">
  <div class="row">
@@ -30,7 +38,8 @@
 
 <!--container div for everything ruby methods inside portfolio tabs-->
     <div class="container">
-                                 <ul class="list-inline">
+
+      <ul class="list-inline">
          <% portfolio.assignments.each_with_index do |a, index|%>
             <div class="accordion" id="accordionExample">
               <div>
@@ -43,190 +52,88 @@
                    <li class="list-inline-item">$<%=a.stock.price%>.00</li>
                    <li class="list-inline-item">$<%=a.stock.price * a.shares%>.00</li>                   
                   </button>
+                  
                  </h5>
                </div><!--ending div for headingThree-->
+
 <!--begin section for data inside tickers-->
-               <div id="collapseThree<%=a.id%>" class="collapse<%a.id%>" aria-labelledby="headingThree" data-parent="#accordionExample">
-                <div class="card-body">
+      <div id="collapseThree<%=a.id%>" class="collapse<%a.id%>" aria-labelledby="headingThree" data-parent="#accordionExample">
+        <div class="card-body">
+
 <!--adding the carousel-->
-                  <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
-                     </li>
-                     <li class="nav-item">
-                      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-                     </li>
-                     <li class="nav-item">
-                      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-                     </li>
-                    </ul>
-</div>                  
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+    </li>
+    <li class="nav-item">
+     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+    </li>
+  </ul>                  
 <!--begin section for content inside ticker data tabs-->
-                  <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                               <table class="table table-hover">
-                                 <thead>
-                                   <tr>
-                                     <th scope="col">#</th>
-                                     <th scope="col">First</th>
-                                     <th scope="col">Last</th>
-                                     <th scope="col">Handle</th>
-                                   </tr>
-                                 </thead>
-                                 <tbody>
-                                   <tr>
-                                     <th scope="row">1</th>
-                                     <td id="symbol"></td>
-                                     <td>Otto</td>
-                                     <td>@mdo</td>
-                                   </tr>
-                                   <tr>
-                                     <th scope="row">2</th>
-                                     <td>Jacob</td>
-                                     <td>Thornton</td>
-                                     <td>@fat</td>
-                                   </tr>
-                                   <tr>
-                                     <th scope="row">3</th>
-                                     <td colspan="2">Larry the Bird</td>
-                                     <td>@twitter</td>
-                                   </tr>
-                                 </tbody>
-                               </table>
-                               </div>
-                               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-                               <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-                             </div>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <table class="table table-hover">
+          <thead>
+           <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+           </tr>
+          </thead>
+        <tbody>
+         <tr>
+          <th scope="row">1</th>
+           <td id="symbol"></td>
+           <td>Otto</td>
+           <td>@mdo</td>
+         </tr>
+         <tr>
+          <th scope="row">2</th>
+           <td>Jacob</td>
+           <td>Thornton</td>
+           <td>@fat</td>
+          </tr>
+          <tr>
+           <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!--ending div for tab-pane fade show active-->
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+  </div><!--ending div for tab-content-->
+
 <!--ending carousel-->
-                            </div><!--ending div for card-body-->
-                          </div><!--ending div for collapseThree-->
-                        </div><!--ending div for empty div-->
-                      </div><!--ending div for accordion-->
-                  <%end%>
-                  </ul>
+     </div><!--ending div for card-body-->
+    </div><!--ending div for collapseThree-->
+   </div><!--ending div for empty div-->
+  </div><!--ending div for accordion-->
+  <%end%>
+    </ul>
     </div><!--ending div for container-->
+      <%= link_to 'Add stock', new_portfolio_assignment_path(portfolio) %>  |
+      <%= link_to 'Edit Portfolio Holdings', assignments_path(portfolio) %>  |
+      <%= link_to 'Delete Portfolio', portfolio, method: :delete, data: {confirm: 'Really?'} %><br><br>
     </div><!--ending div for tab-pane fade-->
   <%end%>
- </div><!--ending div for tab-content-->
-
+    </div><!--ending div for tab-content-->
    </div><!--ending div for form-group-->
   </div><!--ending div for card-body-->
  </div><!--ending div for row-->
 </div><!--ending div for card card-login mx-auto mt-5-->
-<!--navbar for making portfolio display more elegant-->
 
-<!--breadcrumb-->
-   <nav aria-label="breadcrumb">
-     <ol class="breadcrumb">
-       <li class="breadcrumb-item active" aria-current="page">Home</li>
-     </ol>
-   </nav>
-<!--breadcrumb-->
-    <div class="card card-login mx-auto mt-5">
-       <div class="row">
-            <div class="card-header text-right col-3"></div>
-            <div class="card-header text-center col-6"><strong>Current Portfolios</strong></div>
-            <div class="card-header text-right col-3"><%= link_to 'Sign out', destroy_user_session_path, method: :delete%>&nbsp&nbsp</div>
-       </div><!--ending div for "row"-->
-
-<!--begin section for Current Portfolio-->
-        <div class="card-body">
-          <div class='form-group'>
-
-       <% @portfolios.each do |portfolio| %>
-
-         <div class="card"><!--portfolio-card-->
-           <div class="card-body"><!--portfolio-card-body-->
-            <strong><%= portfolio.name %> Portfolio</strong>
-<!--begin li list for Stocks in portolios-->
-<div class="container">
-              <ul class="list-inline">
-         <% portfolio.assignments.each_with_index do |a, index|%>
-            <div class="accordion" id="accordionExample">
-              <div>
-               <div id="headingThree">
-                <h5 class="mb-0">
-                 <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree<%=a.id%>" aria-expanded="false" aria-controls="collapseThree<%=a.id%>">                                    
-                   <li class="list-inline-item"><%= a.stock.ticker %></li>
-                   <li class="list-inline-item"><%=a.shares%></li>
-                   <li class="list-inline-item">@</li>
-                   <li class="list-inline-item">$<%=a.stock.price%>.00</li>
-                   <li class="list-inline-item">$<%=a.stock.price * a.shares%>.00</li>                   
-                  </button>
-                 </h5>
-               </div><!--ending div for headingThree-->
-<!--begin section for data inside tickers-->
-               <div id="collapseThree<%=a.id%>" class="collapse<%a.id%>" aria-labelledby="headingThree" data-parent="#accordionExample">
-                <div class="card-body">
-<!--adding the carousel-->
-                  <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
-                     </li>
-                     <li class="nav-item">
-                      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-                     </li>
-                     <li class="nav-item">
-                      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-                     </li>
-                    </ul>
-</div>                  
-<!--begin section for content inside ticker data tabs-->
-                  <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                               <table class="table table-hover">
-                                 <thead>
-                                   <tr>
-                                     <th scope="col">#</th>
-                                     <th scope="col">First</th>
-                                     <th scope="col">Last</th>
-                                     <th scope="col">Handle</th>
-                                   </tr>
-                                 </thead>
-                                 <tbody>
-                                   <tr>
-                                     <th scope="row">1</th>
-                                     <td id="symbol"></td>
-                                     <td>Otto</td>
-                                     <td>@mdo</td>
-                                   </tr>
-                                   <tr>
-                                     <th scope="row">2</th>
-                                     <td>Jacob</td>
-                                     <td>Thornton</td>
-                                     <td>@fat</td>
-                                   </tr>
-                                   <tr>
-                                     <th scope="row">3</th>
-                                     <td colspan="2">Larry the Bird</td>
-                                     <td>@twitter</td>
-                                   </tr>
-                                 </tbody>
-                               </table>
-                               </div>
-                               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-                               <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-                             </div>
-<!--ending carousel-->
-                            </div><!--ending div for card-body-->
-                          </div><!--ending div for collapseThree-->
-                        </div><!--ending div for empty div-->
-                      </div><!--ending div for accordion-->
-                  <%end%>
-                  </ul>
-            </div><!--portfolio-card-body-->
-           </div><!--portfolio-card-->
-              <%= link_to 'Add stock', new_portfolio_assignment_path(portfolio) %>  |
-              <%= link_to 'Edit Portfolio Holdings', assignments_path(portfolio) %>  |
-              <%= link_to 'Delete Portfolio', portfolio, method: :delete, data: {confirm: 'Really?'} %><br><br>
-            <%end%>
-          </div><!--ending div for "form-group"-->
-        </div><!--ending div for "card-body"-->
-    </div><!-- ending div for "card card-login mx-auto mt-5"-->
 <br>
     <%= link_to 'Create Portfolio', new_portfolio_path, class: 'btn btn-light'%>
     <button onclick="getStocks();" type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">All available Stocks</button>
-<!-- Modal -->
+
+
+<!-- Modal for displaying all stocks-->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
