@@ -62,7 +62,7 @@
 <!--adding the carousel-->
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Data</a>
     </li>
     <li class="nav-item">
      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
@@ -79,39 +79,43 @@
 <!--script for loading ticker tabs data-->
 <script>
   $(".<%=a.stock.ticker%>").on("click", function() {
-    var theURL = "https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/stats";
-    $.getJSON(theURL, function(data) {
-       let firstlist = [data.symbol, data.marketcap]
-       let secondlist = [data.beta, data.shortRatio,data.dividendYield, data.latestEPSDate, data.float, data.sharesOutstanding, data.shortRatio]
-       let thirdlist = [data.institutionPercent, data.insiderPercent, data.day200MovingAvg, data.day50MovingAvg, data.month6ChangePercent, data.ytdChangePercent, data.ytdChangePercent]
-       $('.symbol').empty();
-       $.each(firstlist, function(key, value){
+    var iexstats = "https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/stats";
+    var iexquote = "https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/quote"
+    $.getJSON(iexquote, function(data) {
+       let pricelist = [data.latestPrice, data.previousClose, data.open, data.week52High, data.week52Low, data.marketCap]
+       $('.prices').empty();
+       $.each(pricelist, function(key, value){
          var html = value+'<br>';
-          $('.symbol').append(html);
+          $('.prices').append(html);
        })
-       $('.symbol2').empty();
-       $.each(secondlist, function(key, value){
+   });
+    $.getJSON(iexstats, function(data) {
+       let volumelist = [data.institutionPercent, data.insiderPercent, data.day200MovingAvg, data.day50MovingAvg, data.float, data.shortRatio]
+
+       let changelist = [data.latestEPSDate, data.month3ChangePercent, data.month6ChangePercent, data.year1ChangePercent, data.ytdChangePercent, data.day5ChangePercent]
+       $('.volumes').empty();
+       $.each(volumelist, function(key, value){
          var html = value+'<br>';
-          $('.symbol2').append(html);
+          $('.volumes').append(html);
        })
-        $('.symbol3').empty();
-       $.each(thirdlist, function(key, value){
+        $('.changes').empty();
+       $.each(changelist, function(key, value){
          var html = value+'<br>';
-          $('.symbol3').append(html);
+          $('.changes').append(html);
        })
-  });
+   });
   });
 </script>
 
 <!--div rows and columns for holding above jquery-->
-<div class="row border-bottom">
-  <div class="col">Symbol:<br>Exchange:<br>Sector:<br>Open/Close:<br>Avg Volume:<br>Market Cap:<br>Peers:<br></div>
-  <div class="col-sm"><div class="symbol"></div></div>
-  <div class="col">Beta:<br>Short %:<br>Dividend Yield:<br>EPS Date:<br>Float:<br>Shares Outs:<br>Short Ratio:<br></div>
-  <div class="col-sm"><div class="symbol2"></div></div>
-  <div class="col">Institional %:<br>Insider %:<br>200 Day Avg:<br>50 Day Avg:<br>6 mth %:<br>1 Yr %:<br>YTD %:<br></div>  
-  <div class="col-sm"><div class="symbol3"></div></div>
-</div>
+   <div class="row border-bottom">
+     <div class="col">Current Price:<br>Previous Close:<br>Opening Price:<br>52 Wk High:<br>52 Wk Low:<br>Market Cap:</div>
+     <div class="col-sm"><div class="prices"></div></div>
+     <div class="col">Last EPS:<br>3 Mth Change:<br>6 Mth Change:<br>1 Yr Change:<br>YTD Change:<br>5 Day Change:</div>
+     <div class="col-sm"><div class="changes"></div></div>
+     <div class="col">Inst. Owned:<br>Insider Owned:<br>200 Day Avg:<br>50 Day Vol:<br>Float:<br>Short Ratio:<br></div>  
+     <div class="col-sm"><div class="volumes"></div></div>
+   </div>
       
     </div><!--ending div for tab-pane fade show active-->
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
