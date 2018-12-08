@@ -169,18 +169,19 @@
 
  <!--Modal for displaying all stocks-->
 </div><!--ending div for "container text-center"-->
-<div id="stockarea">
-
-</div>
+<table>
+    <tbody id="tbody"></tbody>
+</table>
 <script>
   var theURL = "https://api.iextrading.com/1.0/stock/aapl/quote";
   $(document).ready(function() {
+    var tbody = document.getElementById('tbody')
     doAjax(theURL);
     function doAjax(url){
       fetch(url)
       .then(response => response.json())
       .then(json =>
-        
+        for (var = 0; i <json.length, i++
       //console.log(json['open'])
       //document.getElementById('symbol').innerHTML = `<p>${json['open']}</p>`
       )
