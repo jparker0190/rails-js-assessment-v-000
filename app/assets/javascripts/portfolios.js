@@ -1,4 +1,4 @@
-$(function () {
+/*$(function () {
     $('form').submit(function(event) {
       //prevent form from submitting the default way
       event.preventDefault();
@@ -21,4 +21,4 @@ $(function () {
    .then(json =>
     document.getElementById("symbol").innerHTML = `<td>${json[0]['symbol']}</td>`
     )
-  })
+  })*/

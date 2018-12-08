@@ -1,4 +1,4 @@
-  <div class="container text-center">
+ <div class="container text-center">
   <br>
 
 <!--breadcrumb-->
@@ -45,8 +45,8 @@
               <div>
                <div id="headingThree">
                 <h5 class="mb-0">
-                 <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree<%=a.id%>" aria-expanded="false" aria-controls="collapseThree<%=a.id%>">                                    
-                   <li class="list-inline-item"><%= a.stock.ticker %></li>
+                 <button onclick="getStock();"class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree<%=a.id%>" aria-expanded="false" aria-controls="collapseThree<%=a.id%>">                                    
+                   <li class="list-inline-item"id="ticker"><%= a.stock.ticker %></li>
                    <li class="list-inline-item"><%=a.shares%></li>
                    <li class="list-inline-item">@</li>
                    <li class="list-inline-item">$<%=a.stock.price%>.00</li>
@@ -75,33 +75,97 @@
 <!--begin section for content inside ticker data tabs-->
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <table class="table table-hover">
-          <thead>
-           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-           </tr>
-          </thead>
+<!--script for loading ticker tabs data-->
+<script>
+  function getStock() {
+   var ti = function(){for(let i = 0; i<index.length; i++){
+    $('#ticker' + i).click(function(){
+     alert('you clicked ' + i);
+    })
+   }}
+   console.log(ti)
+    var theURL = `https://api.iextrading.com/1.0/stock/${ti}/stats`;
+    $.getJSON(theURL, function(data) {
+       var obj = data;
+       console.log(obj.symbol)
+       document.getElementById("symbol").innerHTML = obj.symbol;
+       document.getElementById("beta").innerHTML = obj.beta;
+       document.getElementById("institutionPercent").innerHTML = obj.institutionPercent;
+       document.getElementById("shortInterest").innerHTML = obj.shortInterest;
+       document.getElementById("insiderPercent").innerHTML = obj.insiderPercent;
+       document.getElementById("dividendYield").innerHTML = obj.dividendYield;
+       document.getElementById("day200MovingAvg").innerHTML = obj.day200MovingAvg;
+       document.getElementById("latestEPSDate").innerHTML = obj.latestEPSDate;
+       document.getElementById("day50MovingAvg").innerHTML = obj.day50MovingAvg;
+       document.getElementById("float").innerHTML = obj.float;
+       document.getElementById("month6ChangePercent").innerHTML = obj.month6ChangePercent;
+       document.getElementById("marketcap").innerHTML = obj.marketcap;
+       document.getElementById("sharesOutstanding").innerHTML = obj.sharesOutstanding;
+       document.getElementById("year1ChangePercent").innerHTML = obj.year1ChangePercent;
+       document.getElementById("shortRatio").innerHTML = obj.shortRatio;
+       document.getElementById("ytdChangePercent").innerHTML = obj.ytdChangePercent;
+       //document.getElementById("companyName").innerHTML = obj.companyName;
+  });
+  };
+</script>
+        <table class="table table-hover text-left">
         <tbody>
          <tr>
-          <th scope="row">1</th>
-           <td id="symbol"></td>
-           <td>Otto</td>
-           <td>@mdo</td>
+            <th>Symbol:</th>
+            <td id="symbol"></td>
+            <th>Beta:</th>
+            <td id="beta"></td>
+            <th>Institional %:</th>
+            <td id="institutionPercent"></td>
          </tr>
          <tr>
-          <th scope="row">2</th>
-           <td>Jacob</td>
-           <td>Thornton</td>
-           <td>@fat</td>
+            <th>Exchange:</th>
+            <td>joe</td>
+            <th>Short %:</th>
+            <td id="shortInterest"></td>
+            <th>Insider %:</th>
+            <td id="insiderPercent"></td>
+         </tr>
+         <tr>
+            <th>Sector:</th>
+            <td>joe</td>
+            <th>Dividend Yield:</th>
+            <td id="dividendYield"></td>
+            <th>200 Day MVG:</th>
+            <td id="day200MovingAvg"></td>
           </tr>
           <tr>
-           <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
+            <th>Open/Close:</th>
+            <td>joe</td>
+            <th>Last EPS Date:</th>
+            <td id="latestEPSDate"></td>
+            <th>50 Day MVG:</th>
+            <td id="day50MovingAvg"></td>
           </tr>
+          <tr>
+            <th>Avg Vol:</th>
+            <td>joe</td>
+            <th>Float:</th>
+            <td id="float"></td>
+            <th>6 mth Chg:</th>
+            <td id="month6ChangePercent"></td>
+         </tr>
+         <tr>
+            <th>Market Cap:</th>
+            <td id="marketcap"></td>
+            <th>Shares Outs:</th>
+            <td id="sharesOutstanding"></td>
+            <th>1 Yr % Chg:</th>
+            <td id="year1ChangePercent"></td>
+         </tr>
+         <tr>
+            <th>Peers:</th>
+            <td>joe</td>
+            <th>Short Ratio:</th>
+            <td id="shortRatio"></td>
+            <th>YTD % Chg:</th>
+            <td id="ytdChangePercent"></td>
+         </tr>
         </tbody>
       </table>
     </div><!--ending div for tab-pane fade show active-->
@@ -169,23 +233,9 @@
 
  <!--Modal for displaying all stocks-->
 </div><!--ending div for "container text-center"-->
-<table>
-    <tbody id="tbody"></tbody>
+<table id="stock_table">
+ <tr>
+  <th></th>
+  <td id="primaryExchange"></td>
+ </tr>
 </table>
-<script>
-  var theURL = "https://api.iextrading.com/1.0/stock/aapl/quote";
-  $(document).ready(function() {
-    var tbody = document.getElementById('tbody')
-    doAjax(theURL);
-    function doAjax(url){
-      fetch(url)
-      .then(response => response.json())
-      .then(json =>
-        for (var = 0; i <json.length, i++
-      //console.log(json['open'])
-      //document.getElementById('symbol').innerHTML = `<p>${json['open']}</p>`
-      )
-    }
-  })
-</script>
-
