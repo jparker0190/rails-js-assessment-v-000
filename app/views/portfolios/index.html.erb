@@ -45,14 +45,13 @@
               <div>
                <div id="headingThree">
                 <h5 class="mb-0">
-                 <button onclick="getStock();"class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree<%=a.id%>" aria-expanded="false" aria-controls="collapseThree<%=a.id%>">                                    
-                   <li class="list-inline-item"id="ticker"><%= a.stock.ticker %></li>
+                 <button class="<%=a.stock.ticker%>" type="button" data-toggle="collapse" data-target="#collapseThree<%=a.id%>" aria-expanded="false" aria-controls="collapseThree<%=a.id%>">                                    
+                   <li class="list-inline-item"><%= a.stock.ticker %></li>
                    <li class="list-inline-item"><%=a.shares%></li>
                    <li class="list-inline-item">@</li>
                    <li class="list-inline-item">$<%=a.stock.price%>.00</li>
                    <li class="list-inline-item">$<%=a.stock.price * a.shares%>.00</li>                   
                   </button>
-                  
                  </h5>
                </div><!--ending div for headingThree-->
 
@@ -71,103 +70,49 @@
     <li class="nav-item">
       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
     </li>
-  </ul>                  
+  </ul>  
+
 <!--begin section for content inside ticker data tabs-->
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
 <!--script for loading ticker tabs data-->
 <script>
-  function getStock() {
-   var ti = function(){for(let i = 0; i<index.length; i++){
-    $('#ticker' + i).click(function(){
-     alert('you clicked ' + i);
-    })
-   }}
-   console.log(ti)
-    var theURL = `https://api.iextrading.com/1.0/stock/${ti}/stats`;
+  $(".<%=a.stock.ticker%>").on("click", function() {
+    var theURL = "https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/stats";
     $.getJSON(theURL, function(data) {
-       var obj = data;
-       console.log(obj.symbol)
-       document.getElementById("symbol").innerHTML = obj.symbol;
-       document.getElementById("beta").innerHTML = obj.beta;
-       document.getElementById("institutionPercent").innerHTML = obj.institutionPercent;
-       document.getElementById("shortInterest").innerHTML = obj.shortInterest;
-       document.getElementById("insiderPercent").innerHTML = obj.insiderPercent;
-       document.getElementById("dividendYield").innerHTML = obj.dividendYield;
-       document.getElementById("day200MovingAvg").innerHTML = obj.day200MovingAvg;
-       document.getElementById("latestEPSDate").innerHTML = obj.latestEPSDate;
-       document.getElementById("day50MovingAvg").innerHTML = obj.day50MovingAvg;
-       document.getElementById("float").innerHTML = obj.float;
-       document.getElementById("month6ChangePercent").innerHTML = obj.month6ChangePercent;
-       document.getElementById("marketcap").innerHTML = obj.marketcap;
-       document.getElementById("sharesOutstanding").innerHTML = obj.sharesOutstanding;
-       document.getElementById("year1ChangePercent").innerHTML = obj.year1ChangePercent;
-       document.getElementById("shortRatio").innerHTML = obj.shortRatio;
-       document.getElementById("ytdChangePercent").innerHTML = obj.ytdChangePercent;
-       //document.getElementById("companyName").innerHTML = obj.companyName;
+       let firstlist = [data.symbol, data.marketcap]
+       let secondlist = [data.beta, data.shortRatio,data.dividendYield, data.latestEPSDate, data.float, data.sharesOutstanding, data.shortRatio]
+       let thirdlist = [data.institutionPercent, data.insiderPercent, data.day200MovingAvg, data.day50MovingAvg, data.month6ChangePercent, data.ytdChangePercent, data.ytdChangePercent]
+       $('.symbol').empty();
+       $.each(firstlist, function(key, value){
+         var html = value+'<br>';
+          $('.symbol').append(html);
+       })
+       $('.symbol2').empty();
+       $.each(secondlist, function(key, value){
+         var html = value+'<br>';
+          $('.symbol2').append(html);
+       })
+        $('.symbol3').empty();
+       $.each(thirdlist, function(key, value){
+         var html = value+'<br>';
+          $('.symbol3').append(html);
+       })
   });
-  };
+  });
 </script>
-        <table class="table table-hover text-left">
-        <tbody>
-         <tr>
-            <th>Symbol:</th>
-            <td id="symbol"></td>
-            <th>Beta:</th>
-            <td id="beta"></td>
-            <th>Institional %:</th>
-            <td id="institutionPercent"></td>
-         </tr>
-         <tr>
-            <th>Exchange:</th>
-            <td>joe</td>
-            <th>Short %:</th>
-            <td id="shortInterest"></td>
-            <th>Insider %:</th>
-            <td id="insiderPercent"></td>
-         </tr>
-         <tr>
-            <th>Sector:</th>
-            <td>joe</td>
-            <th>Dividend Yield:</th>
-            <td id="dividendYield"></td>
-            <th>200 Day MVG:</th>
-            <td id="day200MovingAvg"></td>
-          </tr>
-          <tr>
-            <th>Open/Close:</th>
-            <td>joe</td>
-            <th>Last EPS Date:</th>
-            <td id="latestEPSDate"></td>
-            <th>50 Day MVG:</th>
-            <td id="day50MovingAvg"></td>
-          </tr>
-          <tr>
-            <th>Avg Vol:</th>
-            <td>joe</td>
-            <th>Float:</th>
-            <td id="float"></td>
-            <th>6 mth Chg:</th>
-            <td id="month6ChangePercent"></td>
-         </tr>
-         <tr>
-            <th>Market Cap:</th>
-            <td id="marketcap"></td>
-            <th>Shares Outs:</th>
-            <td id="sharesOutstanding"></td>
-            <th>1 Yr % Chg:</th>
-            <td id="year1ChangePercent"></td>
-         </tr>
-         <tr>
-            <th>Peers:</th>
-            <td>joe</td>
-            <th>Short Ratio:</th>
-            <td id="shortRatio"></td>
-            <th>YTD % Chg:</th>
-            <td id="ytdChangePercent"></td>
-         </tr>
-        </tbody>
-      </table>
+
+<!--div rows and columns for holding above jquery-->
+<div class="row border-bottom">
+  <div class="col">Symbol:<br>Exchange:<br>Sector:<br>Open/Close:<br>Avg Volume:<br>Market Cap:<br>Peers:<br></div>
+  <div class="col-sm"><div class="symbol"></div></div>
+  <div class="col">Beta:<br>Short %:<br>Dividend Yield:<br>EPS Date:<br>Float:<br>Shares Outs:<br>Short Ratio:<br></div>
+  <div class="col-sm"><div class="symbol2"></div></div>
+  <div class="col">Institional %:<br>Insider %:<br>200 Day Avg:<br>50 Day Avg:<br>6 mth %:<br>1 Yr %:<br>YTD %:<br></div>  
+  <div class="col-sm"><div class="symbol3"></div></div>
+</div>
+      
     </div><!--ending div for tab-pane fade show active-->
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
@@ -233,9 +178,3 @@
 
  <!--Modal for displaying all stocks-->
 </div><!--ending div for "container text-center"-->
-<table id="stock_table">
- <tr>
-  <th></th>
-  <td id="primaryExchange"></td>
- </tr>
-</table>
