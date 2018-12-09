@@ -38,21 +38,27 @@
 
 <!--container div for everything ruby methods inside portfolio tabs-->
     <div class="container">
-
-      <ul class="list-inline">
+     <div class="row border-bottom">
+        <div class="col">Ticker</div>
+        <div class="col">Shares</div>
+        <div class="col">Price</div>
+        <div class="col">Market Value</div>
+      </div>
+      
          <% portfolio.assignments.each_with_index do |a, index|%>
             <div class="accordion" id="accordionExample">
               <div>
                <div id="headingThree">
-                <h5 class="mb-0">
-                 <button class="<%=a.stock.ticker%>" type="button" data-toggle="collapse" data-target="#collapseThree<%=a.id%>" aria-expanded="false" aria-controls="collapseThree<%=a.id%>">                                    
-                   <li class="list-inline-item"><%= a.stock.ticker %></li>
-                   <li class="list-inline-item"><%=a.shares%></li>
-                   <li class="list-inline-item">@</li>
-                   <li class="list-inline-item">$<%=a.stock.price%>.00</li>
-                   <li class="list-inline-item">$<%=a.stock.price * a.shares%>.00</li>                   
-                  </button>
-                 </h5>
+                <p class="mb-0">
+                 <button class="<%=a.stock.ticker%>" type="button" data-toggle="collapse" data-target="#collapseThree<%=a.id%>" aria-expanded="false" aria-controls="collapseThree<%=a.id%>"> 
+                 </button>
+                    <div class="row border-bottom">
+                      <div class="col"><%= a.stock.ticker %></div>
+                      <div class="col"><%=a.shares%></div>
+                      <div class="col">$<%=a.stock.price%>.00</div>
+                      <div class="col">$<%=a.stock.price * a.shares%>.00</div>
+                    </div>
+                 </p>
                </div><!--ending div for headingThree-->
 
 <!--begin section for data inside tickers-->
@@ -91,7 +97,6 @@
    });
     $.getJSON(iexstats, function(data) {
        let volumelist = [data.institutionPercent, data.insiderPercent, data.day200MovingAvg, data.day50MovingAvg, data.float, data.shortRatio]
-
        let changelist = [data.latestEPSDate, data.month3ChangePercent, data.month6ChangePercent, data.year1ChangePercent, data.ytdChangePercent, data.day5ChangePercent]
        $('.volumes').empty();
        $.each(volumelist, function(key, value){
