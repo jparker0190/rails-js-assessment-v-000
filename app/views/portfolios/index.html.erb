@@ -50,13 +50,15 @@
               <div>
                <div id="headingThree">
                 <p class="mb-0">
-                 <button class="<%=a.stock.ticker%>" type="button" data-toggle="collapse" data-target="#collapseThree<%=a.id%>" aria-expanded="false" aria-controls="collapseThree<%=a.id%>"> 
-                 </button>
-                    <div class="row border-bottom">
-                      <div class="col"><%= a.stock.ticker %></div>
+                <div class="row border-bottom">
+                 <div class="col">
+                 <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree<%=a.id%>" aria-expanded="false" aria-controls="collapseThree<%=a.id%>">   
+                   <li class="list-inline-item"id="<%=a.stock.ticker%><%=index%>"><%= a.stock.ticker %></li>
+                    </button>
+                    </div>
                       <div class="col"><%=a.shares%></div>
-                      <div class="col">$<%=a.stock.price%>.00</div>
-                      <div class="col">$<%=a.stock.price * a.shares%>.00</div>
+                      <div class="col"id="stock_price"><%=a.stock.price%></div>
+                      <div class="col" id="portfolio_value"><%=a.stock.price * a.shares%></div>
                     </div>
                  </p>
                </div><!--ending div for headingThree-->
@@ -84,11 +86,11 @@
 
 <!--script for loading ticker tabs data-->
 <script>
-  $(".<%=a.stock.ticker%>").on("click", function() {
+ $("#<%=a.stock.ticker%><%=index%>").on("click", function() {
     var iexstats = "https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/stats";
     var iexquote = "https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/quote"
     $.getJSON(iexquote, function(data) {
-       let pricelist = [data.latestPrice, data.previousClose, data.open, data.week52High, data.week52Low, data.marketCap]
+       let pricelist = [data.latestPrice, data.previousClose, data.open, data.week52High, data.week52Low]
        $('.prices').empty();
        $.each(pricelist, function(key, value){
          var html = value+'<br>';
@@ -114,7 +116,7 @@
 
 <!--div rows and columns for holding above jquery-->
    <div class="row border-bottom">
-     <div class="col">Current Price:<br>Previous Close:<br>Opening Price:<br>52 Wk High:<br>52 Wk Low:<br>Market Cap:</div>
+     <div class="col">Current Price:<br>Previous Close:<br>Opening Price:<br>52 Wk High:<br>52 Wk Low:</div>
      <div class="col-sm"><div class="prices"></div></div>
      <div class="col">Last EPS:<br>3 Mth Change:<br>6 Mth Change:<br>1 Yr Change:<br>YTD Change:<br>5 Day Change:</div>
      <div class="col-sm"><div class="changes"></div></div>
@@ -134,6 +136,12 @@
   </div><!--ending div for accordion-->
   <%end%>
     </ul>
+    <div class="row border-bottom">
+        <div class="col">Portfolio Value</div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"id="final_value"></div>
+      </div>
     </div><!--ending div for container-->
       <%= link_to 'Add stock', new_portfolio_assignment_path(portfolio) %>  |
       <%= link_to 'Edit Portfolio Holdings', assignments_path(portfolio) %>  |
