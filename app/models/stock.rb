@@ -2,7 +2,6 @@ class Stock < ApplicationRecord
     before_save :capitalize_ticker
     validates_uniqueness_of :ticker, :case_sensitive => false
     validates :ticker, presence: true
-    validates :price, presence: true 
     has_many :assignments
     has_many :portfolios, through: :assignments
    
@@ -12,5 +11,4 @@ class Stock < ApplicationRecord
     def capitalize_ticker
     self.ticker =  self.ticker.upcase
     end
- 
 end

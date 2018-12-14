@@ -13,17 +13,23 @@
 <!--breadcrumbs-->
     <div class="card card-login mx-auto mt-5">
       <div class="card-header text-center "><strong>Here is your Portfolio</strong> </div>
-        <div class="card-body">
-          <p>
-            <strong>Ticker:</strong>
-            <%= @stock.ticker %>
-          </p>
+        <% if @stock %>
+      <div class="col-xs-4 ">
+      </div>
+      <div class="col-xs-4 ">
+        <div class="panel panel-default">
+          <div class="panel-heading"><b><%= @stock.company_name %> - <%= @stock.symbol %></b></div>
+          
+          <ul class="list-group">
+            <li class="list-group-item"><b>Volume: </b>$<%= @stock.avg_total_volume %></li>
+            <li class="list-group-item"><b>Pe Ratio: </b>$<%= @stock.pe_ratio %></li>
+          </ul>
+        </div>
+      </div>
 
-          <p>
-            <strong>Price:</strong>
-            <%= @stock.price %>
-          </p>
-       </div>
+  <% elsif @error %>
+      <%= @error %>
+  <% end %>
      </div>
    </div>
 </div>

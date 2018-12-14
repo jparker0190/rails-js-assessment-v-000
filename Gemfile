@@ -62,5 +62,6 @@ gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem 'certified'
 gem 'active_model_serializers'
+gem 'rest-client'
 gem 'stock_quote'
 

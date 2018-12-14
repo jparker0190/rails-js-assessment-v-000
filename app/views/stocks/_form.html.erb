@@ -14,10 +14,6 @@
         <%= form.text_field :ticker, autofocus: true, class: 'form-control', placeholder: "Enter a ticker" %>
       </div>
 
-      <div class="form-group text-center">
-        <%= form.number_field :price, autofocus: true, class: 'form-control', placeholder: "Enter the price" %>
-      </div>
-
       <div class="actions">
         <%= form.submit class: 'btn btn-primary btn-block' %>
       </div>
@@ -27,7 +23,7 @@
   <p id="Stockpick"></p>
 </div>
 <script>
-$(function () {
+/*$(function () {
     $('form').submit(function(event) {
       //prevent form from submitting the default way
       event.preventDefault();
@@ -38,7 +34,7 @@ $(function () {
  
       posting.done(function(data) {
         var post = data;
-        $("#Stockpick").text(post["ticker"]+" @ $" +post["price"]+".00 is now a stock you can add to a portfolio.");
+        $("#Stockpick").text(post["ticker"];
       });
     });
-  });</script>
+  });*/</script>
