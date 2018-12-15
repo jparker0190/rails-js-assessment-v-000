@@ -5,6 +5,7 @@
    <nav aria-label="breadcrumb">
      <ol class="breadcrumb">
        <li class="breadcrumb-item active" aria-current="page">Home</li>
+       <li class="breadcrumb-item active text-right" aria-current="page"><%= link_to 'Sign out', destroy_user_session_path, method: :delete%></li>
      </ol>
    </nav>
 <!--breadcrum<b-->
@@ -159,7 +160,7 @@
    <div class="card-header text-center col-6">
     <strong>Current Portfolios</strong>
    </div><!--ending for card-header text-center col-6-->
-   <div class="card-header text-right col-3"><%= link_to 'Sign out', destroy_user_session_path, method: :delete%>&nbsp&nbsp
+   <div class="card-header text-right col-3">
    </div><!--ending div for card-header text-right col-3-->
    
 <!--ul list for tab headers-->   
@@ -300,7 +301,41 @@
 <br>
     <%= link_to 'Create Portfolio', new_portfolio_path, class: 'btn btn-light'%>
     <button onclick="getStocks();" type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">All available Stocks</button>
+<br>
+<br>
+<!--adding market news feed-->
+   <div class="card bg-light mb-3">
+     <div class="card-header">Market News</div>
+     <div class="card-body">
+       <blockquote class="blockquote mb-0 ">
+         <h5 id ="headline"></h5><br>
+         <a id="url"href="#" class="badge badge-primary"></a>
 
+
+         <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+       </blockquote>
+     </div>
+   </div>
+<!--ending market news feed-->
+
+<!--script for market news feed-->
+<script>
+fetch("https://api.iextrading.com/1.0/stock/market/news")
+  .then(function(response) {
+    return response.json()
+  })
+  .then(function(myJson) {
+   for (var key in myJson){
+
+    var headline = "<span class='badge badge-secondary'>"+myJson[key].headline+"</span><br>";
+    var url = myJson[key].url
+    $("#headline").append(headline)
+    $("#url").append(url)
+
+   }
+  });
+</script>
+<!--ending script for market news feed-->
 
 <!-- Modal for displaying all stocks-->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
