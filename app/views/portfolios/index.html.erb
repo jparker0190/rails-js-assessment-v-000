@@ -7,7 +7,150 @@
        <li class="breadcrumb-item active" aria-current="page">Home</li>
      </ol>
    </nav>
-<!--breadcrumb-->
+<!--breadcrum<b-->
+
+
+
+<!--adding market moving stocks section-->
+ <div class="row">
+  <div class="col-sm">
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+     <div class="card-header">
+       <a id="mostactive"class="badge badge-light" data-toggle="collapse" href="#collapseExamplemost_active" role="button" aria-expanded="false" aria-controls="collapseExample">Most Active</a>
+     </div>
+     <div class="card-body">
+ <!--table of most active stocks on IEX-->
+        <div class="collapse" id="collapseExamplemost_active">
+          <div class="card card-body">
+
+             <div class="container">
+               <div class="row border-bottom">
+                 <div class="col">Ticker</div>
+                 <div class="col">Price</div>
+                 <div class="col">% </div>
+               </div>
+               <div class="row border-bottom">
+                 <div class="col-sm text-center"><div id="mostactivelist"></div></div>
+               </div>
+             </div>
+
+          </div>
+        </div>
+       <p class="card-text">The top ten stocks that are most actively traded on the IEX exchange. Click the title to view them!</p>
+ <!--ending table of most active stocks on IEX-->
+     </div>
+   </div>
+  </div>
+ <div class="col-sm">
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+     <div class="card-header">
+       <a class="badge badge-success" data-toggle="collapse" href="#collapseExamplegainer" role="button" aria-expanded="false" aria-controls="collapseExample">Gainers</a>
+     </div>
+     <div class="card-body">
+ <!--table of biggest gainers on IEX-->
+        <div class="collapse" id="collapseExamplegainer">
+          <div class="card card-body">
+            Gainers
+          </div>
+        </div>
+       <p class="card-text">The top ten stocks with the biggest gains traded on the IEX exchange. Click the title to view them!</p>
+ <!--ending table of biggest gainers on IEX-->
+     </div>
+   </div>
+  </div><!--ending div for col-sm-->
+   <div class="col-sm">
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+     <div class="card-header">
+       <a class="badge badge-danger" data-toggle="collapse" href="#collapseExamplelosers" role="button" aria-expanded="false" aria-controls="collapseExample">Losers</a>
+     </div>
+     <div class="card-body">
+ <!--table of biggest losers on IEX-->
+        <div class="collapse" id="collapseExamplelosers">
+          <div class="card card-body">
+            Losers
+          </div>
+        </div>
+       <p class="card-text">The top ten stocks with the biggest losses traded on the IEX exchange. Click the title to view them!</p>
+ <!--ending table of biggest losers on IEX-->
+     </div>
+   </div>
+  </div><!--ending div for col-sm-->
+</div><!--ending div for most active stock row-->
+ <div class="row">
+  <div class="col-sm">
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+     <div class="card-header">
+       <a class="badge badge-info" data-toggle="collapse" href="#collapseExamplevolume" role="button" aria-expanded="false" aria-controls="collapseExample">Most Volume</a>
+     </div>
+     <div class="card-body">
+ <!--table of most volume on IEX-->
+         
+        <div class="collapse" id="collapseExamplevolume">
+          <div class="card card-body">
+            Most Volume
+          </div>
+        </div>
+       <p class="card-text">The top ten stocks with most volume traded on the IEX exchange. Click the title to view them!</p>
+ <!--ending table of most volume on IEX-->
+     </div>
+   </div>
+  </div>
+ <div class="col-sm">
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+     <div class="card-header">
+       <a class="badge badge-primary" data-toggle="collapse" href="#collapseExamplepercentmovers" role="button" aria-expanded="false" aria-controls="collapseExample">Biggest % Movers</a>
+     </div>
+     <div class="card-body">
+ <!--table of biggest percent movers on IEX-->
+        <div class="collapse" id="collapseExamplepercentmovers">
+          <div class="card card-body">
+            Biggest Percent Movers
+          </div>
+        </div>
+       <p class="card-text">The top ten stocks with the biggest percentage moves traded on the IEX exchange. Click the title to view them!</p>
+ <!-- ending table of biggest percent movers on IEX-->
+     </div>
+   </div>
+  </div><!--ending div for col-sm-->
+   <div class="col-sm">
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+     <div class="card-header">
+       <a class="badge badge-warning" data-toggle="collapse" href="#collapseExampleiexfocus" role="button" aria-expanded="false" aria-controls="collapseExample">IEX In Focus</a>
+     </div>
+     <div class="card-body">
+ <!--table of iex in focus on IEX-->
+        <div class="collapse" id="collapseExampleiexfocus">
+          <div class="card card-body">
+            IEX in Focus
+          </div>
+        </div>
+       <p class="card-text">The top ten stocks that are getting the most attention on the IEX exchange. Click the title to view them!</p>
+ <!--ending table of iex in focus on IEX-->
+     </div>
+   </div>
+  </div><!--ending div for col-sm-->
+</div><!--ending div for most active stock row-->
+
+<!--ending market moving stocks section-->
+
+<!--script for filling in the market moving section table-->
+<script>
+  fetch("https://api.iextrading.com/1.0/stock/market/list/mostactive")
+  .then(function(response) {
+    return response.json()
+  })
+  .then(function(myJson) {
+   for (var key in myJson){
+    console.log(myJson)
+    var percent = myJson[key].changePercent * 100
+    var convert = percent.toFixed(2)
+    var symbol = myJson[key].symbol+ myJson[key].iexRealtimePrice+convert +'<br>';
+    
+    $("#mostactivelist").append(symbol)
+   }
+  });
+</script>
+<!--ending script for filling in the market moving section table-->
 
 <!--navbar for making portfolio display more elegant-->
 <div class="card card-login mx-auto mt-5">
@@ -57,8 +200,8 @@
                     </button>
                     </div>
                       <div class="col"><%=a.shares%></div>
-                      <div class="col"id="stock_price"><%=a.stock.price%></div>
-                      <div class="col" id="portfolio_value"><%=a.stock.price * a.shares%></div>
+                      <div class="col"id="stock_price"></div>
+                      <div class="col" id="portfolio_value"></div>
                     </div>
                  </p>
                </div><!--ending div for headingThree-->
