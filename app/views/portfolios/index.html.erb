@@ -10,7 +10,189 @@
    </nav>
 <!--breadcrum<b-->
 
+<!--adding market news feed-->
+  <div class="card bg-light" >
+     <div class="card-header"><strong>Market News</strong></div>
+     <div class="card-body">
+      <div id ="headline"></div>
+      <div id="url"></div>
+     </div>
+     </div>
+<!--ending market news feed-->
 
+<!--script for market news feed-->
+<script>
+fetch("https://newsapi.org/v2/top-headlines?sources=the-wall-street-journal&apiKey=9b5160fadb7843a5a8e52d80c6f3fd1c")
+  .then(function(response) {
+    return response.json()
+  })
+  .then(function(myJson) {
+   var articles = (myJson.articles).length
+   console.log(articles)
+   for (let i = 0; i < articles; i++){
+    console.log(articles[i].title)
+   }
+    console.log(articles[1].title)
+    /*for (var key in myJson){
+    var percent = myJson[key].changePercent * 100
+    $("#volumeticker").append(symbol);
+   }*/
+  });
+</script>
+<!--ending script for market news feed-->
+
+
+
+<!--navbar for making portfolio display more elegant-->
+<div class="card card-login mx-auto mt-5">
+ <div class="row">
+  <div class="card-header text-right col-3"></div><!--ending div for the left-->
+   <div class="card-header text-center col-6">
+    <strong>Current Portfolios</strong>
+   </div><!--ending for card-header text-center col-6-->
+   <div class="card-header text-right col-3">
+   </div><!--ending div for card-header text-right col-3-->
+   
+<!--ul list for tab headers-->   
+<div class="card-body">
+  <div class='form-group'>
+   <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <% @portfolios.each do |portfolio| %>
+      <li class="nav-item">
+        <a class="nav-link" id="portfolio-tab" data-toggle="tab" href="#portfolio<%=portfolio.id%>" role="tab" aria-controls="portfolio" aria-selected="true"><%=portfolio.name%></a>
+      </li>
+    <%end%>
+   </ul>
+  
+
+<!--div for content inside tab headers-->
+ <div class="tab-content" id="myTabContent">
+  <% @portfolios.each do |portfolio| %>
+    <div class="tab-pane fade" id="portfolio<%=portfolio.id%>" role="tabpanel" aria-labelledby="portfolio-tab">
+
+<!--container div for everything ruby methods inside portfolio tabs-->
+    <div class="container">
+     <div class="row border-bottom">
+        <div class="col">Ticker</div>
+        <div class="col">Shares</div>
+        <div class="col">Price</div>
+        <div class="col">Market Value</div>
+      </div>
+      
+         <% portfolio.assignments.each_with_index do |a, index|%>
+            <div class="accordion" id="accordionExample">
+              <div>
+               <div id="headingThree">
+                <p class="mb-0">
+                <div class="row border-bottom">
+                 <div class="col">
+                 <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree<%=a.id%>" aria-expanded="false" aria-controls="collapseThree<%=a.id%>">   
+                   <li class="list-inline-item"id="<%=a.stock.ticker%><%=index%>"><%= a.stock.ticker %></li>
+                    </button>
+                    </div>
+                      <div class="col"><%=a.shares%></div>
+                      <div class="col"id="stock_price"></div>
+                      <div class="col" id="portfolio_value"></div>
+                    </div>
+                 </p>
+               </div><!--ending div for headingThree-->
+
+<!--begin section for data inside tickers-->
+      <div id="collapseThree<%=a.id%>" class="collapse<%a.id%>" aria-labelledby="headingThree" data-parent="#accordionExample">
+        <div class="card-body">
+
+<!--adding the carousel-->
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Data</a>
+    </li>
+    <li class="nav-item">
+     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+    </li>
+  </ul>  
+
+<!--begin section for content inside ticker data tabs-->
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+<!--script for loading ticker tabs data-->
+<script>
+ $("#<%=a.stock.ticker%><%=index%>").on("click", function() {
+    var iexstats = "https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/stats";
+    var iexquote = "https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/quote"
+    $.getJSON(iexquote, function(data) {
+       let pricelist = [data.latestPrice, data.previousClose, data.open, data.week52High, data.week52Low]
+       $('.prices').empty();
+       $.each(pricelist, function(key, value){
+         var html = value+'<br>';
+          $('.prices').append(html);
+       })
+   });
+    $.getJSON(iexstats, function(data) {
+       let volumelist = [data.institutionPercent, data.insiderPercent, data.day200MovingAvg, data.day50MovingAvg, data.float, data.shortRatio]
+       let changelist = [data.latestEPSDate, data.month3ChangePercent, data.month6ChangePercent, data.year1ChangePercent, data.ytdChangePercent, data.day5ChangePercent]
+       $('.volumes').empty();
+       $.each(volumelist, function(key, value){
+         var html = value+'<br>';
+          $('.volumes').append(html);
+       })
+        $('.changes').empty();
+       $.each(changelist, function(key, value){
+         var html = value+'<br>';
+          $('.changes').append(html);
+       })
+   });
+  });
+</script>
+
+<!--div rows and columns for holding above jquery-->
+   <div class="row border-bottom">
+     <div class="col">Current Price:<br>Previous Close:<br>Opening Price:<br>52 Wk High:<br>52 Wk Low:</div>
+     <div class="col-sm"><div class="prices"></div></div>
+     <div class="col">Last EPS:<br>3 Mth Change:<br>6 Mth Change:<br>1 Yr Change:<br>YTD Change:<br>5 Day Change:</div>
+     <div class="col-sm"><div class="changes"></div></div>
+     <div class="col">Inst. Owned:<br>Insider Owned:<br>200 Day Avg:<br>50 Day Vol:<br>Float:<br>Short Ratio:<br></div>  
+     <div class="col-sm"><div class="volumes"></div></div>
+   </div>
+      
+    </div><!--ending div for tab-pane fade show active-->
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+  </div><!--ending div for tab-content-->
+
+<!--ending carousel-->
+     </div><!--ending div for card-body-->
+    </div><!--ending div for collapseThree-->
+   </div><!--ending div for empty div-->
+  </div><!--ending div for accordion-->
+  <%end%>
+    </ul>
+    <div class="row border-bottom">
+        <div class="col">Portfolio Value</div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"id="final_value"></div>
+      </div>
+    </div><!--ending div for container-->
+      <%= link_to 'Add stock', new_portfolio_assignment_path(portfolio) %>  |
+      <%= link_to 'Edit Portfolio Holdings', assignments_path(portfolio) %>  |
+      <%= link_to 'Delete Portfolio', portfolio, method: :delete, data: {confirm: 'Really?'} %><br><br>
+    </div><!--ending div for tab-pane fade-->
+  <%end%>
+    </div><!--ending div for tab-content-->
+   </div><!--ending div for form-group-->
+  </div><!--ending div for card-body-->
+ </div><!--ending div for row-->
+</div><!--ending div for card card-login mx-auto mt-5-->
+
+<br>
+    <%= link_to 'Create Portfolio', new_portfolio_path, class: 'btn btn-light'%>
+    <button onclick="getStocks();" type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">All available Stocks</button>
+<br>
+<br>
 
 <!--adding market moving stocks section-->
  <div class="row">
@@ -214,190 +396,6 @@
 </div><!--ending div for most active stock row-->
 
 <!--ending market moving stocks section-->
-
-<!--navbar for making portfolio display more elegant-->
-<div class="card card-login mx-auto mt-5">
- <div class="row">
-  <div class="card-header text-right col-3"></div><!--ending div for the left-->
-   <div class="card-header text-center col-6">
-    <strong>Current Portfolios</strong>
-   </div><!--ending for card-header text-center col-6-->
-   <div class="card-header text-right col-3">
-   </div><!--ending div for card-header text-right col-3-->
-   
-<!--ul list for tab headers-->   
-<div class="card-body">
-  <div class='form-group'>
-   <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <% @portfolios.each do |portfolio| %>
-      <li class="nav-item">
-        <a class="nav-link" id="portfolio-tab" data-toggle="tab" href="#portfolio<%=portfolio.id%>" role="tab" aria-controls="portfolio" aria-selected="true"><%=portfolio.name%></a>
-      </li>
-    <%end%>
-   </ul>
-  
-
-<!--div for content inside tab headers-->
- <div class="tab-content" id="myTabContent">
-  <% @portfolios.each do |portfolio| %>
-    <div class="tab-pane fade" id="portfolio<%=portfolio.id%>" role="tabpanel" aria-labelledby="portfolio-tab">
-
-<!--container div for everything ruby methods inside portfolio tabs-->
-    <div class="container">
-     <div class="row border-bottom">
-        <div class="col">Ticker</div>
-        <div class="col">Shares</div>
-        <div class="col">Price</div>
-        <div class="col">Market Value</div>
-      </div>
-      
-         <% portfolio.assignments.each_with_index do |a, index|%>
-            <div class="accordion" id="accordionExample">
-              <div>
-               <div id="headingThree">
-                <p class="mb-0">
-                <div class="row border-bottom">
-                 <div class="col">
-                 <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree<%=a.id%>" aria-expanded="false" aria-controls="collapseThree<%=a.id%>">   
-                   <li class="list-inline-item"id="<%=a.stock.ticker%><%=index%>"><%= a.stock.ticker %></li>
-                    </button>
-                    </div>
-                      <div class="col"><%=a.shares%></div>
-                      <div class="col"id="stock_price"></div>
-                      <div class="col" id="portfolio_value"></div>
-                    </div>
-                 </p>
-               </div><!--ending div for headingThree-->
-
-<!--begin section for data inside tickers-->
-      <div id="collapseThree<%=a.id%>" class="collapse<%a.id%>" aria-labelledby="headingThree" data-parent="#accordionExample">
-        <div class="card-body">
-
-<!--adding the carousel-->
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Data</a>
-    </li>
-    <li class="nav-item">
-     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-    </li>
-  </ul>  
-
-<!--begin section for content inside ticker data tabs-->
-  <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-
-<!--script for loading ticker tabs data-->
-<script>
- $("#<%=a.stock.ticker%><%=index%>").on("click", function() {
-    var iexstats = "https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/stats";
-    var iexquote = "https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/quote"
-    $.getJSON(iexquote, function(data) {
-       let pricelist = [data.latestPrice, data.previousClose, data.open, data.week52High, data.week52Low]
-       $('.prices').empty();
-       $.each(pricelist, function(key, value){
-         var html = value+'<br>';
-          $('.prices').append(html);
-       })
-   });
-    $.getJSON(iexstats, function(data) {
-       let volumelist = [data.institutionPercent, data.insiderPercent, data.day200MovingAvg, data.day50MovingAvg, data.float, data.shortRatio]
-       let changelist = [data.latestEPSDate, data.month3ChangePercent, data.month6ChangePercent, data.year1ChangePercent, data.ytdChangePercent, data.day5ChangePercent]
-       $('.volumes').empty();
-       $.each(volumelist, function(key, value){
-         var html = value+'<br>';
-          $('.volumes').append(html);
-       })
-        $('.changes').empty();
-       $.each(changelist, function(key, value){
-         var html = value+'<br>';
-          $('.changes').append(html);
-       })
-   });
-  });
-</script>
-
-<!--div rows and columns for holding above jquery-->
-   <div class="row border-bottom">
-     <div class="col">Current Price:<br>Previous Close:<br>Opening Price:<br>52 Wk High:<br>52 Wk Low:</div>
-     <div class="col-sm"><div class="prices"></div></div>
-     <div class="col">Last EPS:<br>3 Mth Change:<br>6 Mth Change:<br>1 Yr Change:<br>YTD Change:<br>5 Day Change:</div>
-     <div class="col-sm"><div class="changes"></div></div>
-     <div class="col">Inst. Owned:<br>Insider Owned:<br>200 Day Avg:<br>50 Day Vol:<br>Float:<br>Short Ratio:<br></div>  
-     <div class="col-sm"><div class="volumes"></div></div>
-   </div>
-      
-    </div><!--ending div for tab-pane fade show active-->
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
-  </div><!--ending div for tab-content-->
-
-<!--ending carousel-->
-     </div><!--ending div for card-body-->
-    </div><!--ending div for collapseThree-->
-   </div><!--ending div for empty div-->
-  </div><!--ending div for accordion-->
-  <%end%>
-    </ul>
-    <div class="row border-bottom">
-        <div class="col">Portfolio Value</div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"id="final_value"></div>
-      </div>
-    </div><!--ending div for container-->
-      <%= link_to 'Add stock', new_portfolio_assignment_path(portfolio) %>  |
-      <%= link_to 'Edit Portfolio Holdings', assignments_path(portfolio) %>  |
-      <%= link_to 'Delete Portfolio', portfolio, method: :delete, data: {confirm: 'Really?'} %><br><br>
-    </div><!--ending div for tab-pane fade-->
-  <%end%>
-    </div><!--ending div for tab-content-->
-   </div><!--ending div for form-group-->
-  </div><!--ending div for card-body-->
- </div><!--ending div for row-->
-</div><!--ending div for card card-login mx-auto mt-5-->
-
-<br>
-    <%= link_to 'Create Portfolio', new_portfolio_path, class: 'btn btn-light'%>
-    <button onclick="getStocks();" type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">All available Stocks</button>
-<br>
-<br>
-<!--adding market news feed-->
-   <div class="card bg-light mb-3">
-     <div class="card-header">Market News</div>
-     <div class="card-body">
-       <blockquote class="blockquote mb-0 ">
-         <h5 id ="headline"></h5><br>
-         <a id="url"href="#" class="badge badge-primary"></a>
-
-
-         <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-       </blockquote>
-     </div>
-   </div>
-<!--ending market news feed-->
-
-<!--script for market news feed-->
-<script>
-fetch("https://api.iextrading.com/1.0/stock/market/news")
-  .then(function(response) {
-    return response.json()
-  })
-  .then(function(myJson) {
-   for (var key in myJson){
-
-    var headline = "<span class='badge badge-secondary'>"+myJson[key].headline+"</span><br>";
-    var url = myJson[key].url
-    $("#headline").append(headline)
-    $("#url").append(url)
-
-   }
-  });
-</script>
-<!--ending script for market news feed-->
 
 <!-- Modal for displaying all stocks-->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

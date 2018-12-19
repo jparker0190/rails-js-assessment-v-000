@@ -4,7 +4,6 @@ fetch("https://api.iextrading.com/1.0/stock/market/list/mostactive")
   })
   .then(function(myJson) {
    for (var key in myJson){
-    console.log(myJson)
     var percent = myJson[key].changePercent * 100
     var convert = percent.toFixed(2) + '<br>'
     var symbol = myJson[key].symbol+'<br>';
@@ -20,7 +19,6 @@ fetch("https://api.iextrading.com/1.0/stock/market/list/mostactive")
   })
   .then(function(myJson) {
    for (var key in myJson){
-    console.log(myJson)
     var percent = myJson[key].changePercent * 100
     var convert = percent.toFixed(2) + '<br>'
     var symbol = myJson[key].symbol+'<br>';
@@ -36,7 +34,7 @@ fetch("https://api.iextrading.com/1.0/stock/market/list/mostactive")
   })
   .then(function(myJson) {
    for (var key in myJson){
-    console.log(myJson)
+
     var percent = myJson[key].changePercent * 100
     var convert = percent.toFixed(2) + '<br>'
     var symbol = myJson[key].symbol+'<br>';
@@ -52,7 +50,6 @@ fetch("https://api.iextrading.com/1.0/stock/market/list/mostactive")
   })
   .then(function(myJson) {
    for (var key in myJson){
-    console.log(myJson)
     var percent = myJson[key].changePercent * 100
     var convert = percent.toFixed(2) + '<br>'
     var symbol = myJson[key].symbol+'<br>';
@@ -68,7 +65,6 @@ fetch("https://api.iextrading.com/1.0/stock/market/list/mostactive")
   })
   .then(function(myJson) {
    for (var key in myJson){
-    console.log(myJson)
     var percent = myJson[key].changePercent * 100
     var convert = percent.toFixed(2) + '<br>'
     var symbol = myJson[key].symbol+'<br>';
@@ -84,7 +80,6 @@ fetch("https://api.iextrading.com/1.0/stock/market/list/mostactive")
   })
   .then(function(myJson) {
    for (var key in myJson){
-    console.log(myJson)
     var percent = myJson[key].changePercent * 100
     var convert = percent.toFixed(2) + '<br>'
     var symbol = myJson[key].symbol+'<br>';
