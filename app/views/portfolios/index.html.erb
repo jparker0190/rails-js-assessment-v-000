@@ -24,16 +24,22 @@
         <div class="collapse" id="collapseExamplemost_active">
           <div class="card card-body">
 
-             <div class="container">
-               <div class="row border-bottom">
-                 <div class="col">Ticker</div>
-                 <div class="col">Price</div>
-                 <div class="col">% </div>
-               </div>
-               <div class="row border-bottom">
-                 <div class="col-sm text-center"><div id="mostactivelist"></div></div>
-               </div>
-             </div>
+             <table class="table table-sm">
+               <thead>
+                 <tr>
+                   <th scope="col">Ticker</th>
+                   <th scope="col">Price</th>
+                   <th scope="col">%</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td id="mostactiveticker"></td>
+                   <td id="mostactiveprice"></td>
+                   <td id="mostactiveper"></td>
+                 </tr>
+               </tbody>
+             </table>
 
           </div>
         </div>
@@ -51,7 +57,22 @@
  <!--table of biggest gainers on IEX-->
         <div class="collapse" id="collapseExamplegainer">
           <div class="card card-body">
-            Gainers
+            <table class="table table-sm">
+               <thead>
+                 <tr>
+                   <th scope="col">Ticker</th>
+                   <th scope="col">Price</th>
+                   <th scope="col">%</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td id="gainerticker"></td>
+                   <td id="gainerprice"></td>
+                   <td id="gainerper"></td>
+                 </tr>
+               </tbody>
+             </table>
           </div>
         </div>
        <p class="card-text">The top ten stocks with the biggest gains traded on the IEX exchange. Click the title to view them!</p>
@@ -68,7 +89,22 @@
  <!--table of biggest losers on IEX-->
         <div class="collapse" id="collapseExamplelosers">
           <div class="card card-body">
-            Losers
+            <table class="table table-sm">
+               <thead>
+                 <tr>
+                   <th scope="col">Ticker</th>
+                   <th scope="col">Price</th>
+                   <th scope="col">%</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td id="loserticker"></td>
+                   <td id="loserprice"></td>
+                   <td id="loserper"></td>
+                 </tr>
+               </tbody>
+             </table>
           </div>
         </div>
        <p class="card-text">The top ten stocks with the biggest losses traded on the IEX exchange. Click the title to view them!</p>
@@ -88,7 +124,22 @@
          
         <div class="collapse" id="collapseExamplevolume">
           <div class="card card-body">
-            Most Volume
+            <table class="table table-sm">
+               <thead>
+                 <tr>
+                   <th scope="col">Ticker</th>
+                   <th scope="col">Price</th>
+                   <th scope="col">%</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td id="volumeticker"></td>
+                   <td id="volumeprice"></td>
+                   <td id="volumeper"></td>
+                 </tr>
+               </tbody>
+             </table>
           </div>
         </div>
        <p class="card-text">The top ten stocks with most volume traded on the IEX exchange. Click the title to view them!</p>
@@ -105,7 +156,22 @@
  <!--table of biggest percent movers on IEX-->
         <div class="collapse" id="collapseExamplepercentmovers">
           <div class="card card-body">
-            Biggest Percent Movers
+            <table class="table table-sm">
+               <thead>
+                 <tr>
+                   <th scope="col">Ticker</th>
+                   <th scope="col">Price</th>
+                   <th scope="col">%</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td id="percentticker"></td>
+                   <td id="percentprice"></td>
+                   <td id="percentper"></td>
+                 </tr>
+               </tbody>
+             </table>
           </div>
         </div>
        <p class="card-text">The top ten stocks with the biggest percentage moves traded on the IEX exchange. Click the title to view them!</p>
@@ -122,7 +188,22 @@
  <!--table of iex in focus on IEX-->
         <div class="collapse" id="collapseExampleiexfocus">
           <div class="card card-body">
-            IEX in Focus
+            <table class="table table-sm">
+               <thead>
+                 <tr>
+                   <th scope="col">Ticker</th>
+                   <th scope="col">Price</th>
+                   <th scope="col">%</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr>
+                   <td id="focusticker"></td>
+                   <td id="focusprice"></td>
+                   <td id="focusper"></td>
+                 </tr>
+               </tbody>
+             </table>
           </div>
         </div>
        <p class="card-text">The top ten stocks that are getting the most attention on the IEX exchange. Click the title to view them!</p>
@@ -133,25 +214,6 @@
 </div><!--ending div for most active stock row-->
 
 <!--ending market moving stocks section-->
-
-<!--script for filling in the market moving section table-->
-<script>
-  fetch("https://api.iextrading.com/1.0/stock/market/list/mostactive")
-  .then(function(response) {
-    return response.json()
-  })
-  .then(function(myJson) {
-   for (var key in myJson){
-    console.log(myJson)
-    var percent = myJson[key].changePercent * 100
-    var convert = percent.toFixed(2)
-    var symbol = myJson[key].symbol+ myJson[key].iexRealtimePrice+convert +'<br>';
-    
-    $("#mostactivelist").append(symbol)
-   }
-  });
-</script>
-<!--ending script for filling in the market moving section table-->
 
 <!--navbar for making portfolio display more elegant-->
 <div class="card card-login mx-auto mt-5">
