@@ -108,7 +108,7 @@
       <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Data</a>
     </li>
     <li class="nav-item">
-     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">News</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
@@ -130,7 +130,7 @@
     var current_price = result.iexRealtimePrice;
     var shares = <%=a.shares%>;
     var cal = shares * current_price
-    var market_value = cal.toFixed(2)
+    var market_value = cal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
     var companyname = result.companyName;
     var openclose = result.open + " / " + result.close;
     var highlow = result.high + " / " + result.low;
@@ -155,7 +155,6 @@
     return response.json()
   })
   .then(function(result) {
-
     var latestEPS = result.latestEPS
     var institutionPercent = result.institutionPercent
     var fivepercent = (result.day5ChangePercent*100).toFixed(3)
@@ -252,7 +251,7 @@
         <div class="col">Portfolio Value</div>
         <div class="col"></div>
         <div class="col"></div>
-        <div class="col"id="final_value"></div>
+        <div class="col"><p class="final_value"></p></div>
       </div>
     </div><!--ending div for container-->
       <%= link_to 'Add stock', new_portfolio_assignment_path(portfolio) %>  |
