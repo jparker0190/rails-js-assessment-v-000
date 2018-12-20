@@ -22,7 +22,7 @@
 
 <!--script for market news feed-->
 <script>
-fetch("https://newsapi.org/v2/top-headlines?sources=the-wall-street-journal&apiKey=9b5160fadb7843a5a8e52d80c6f3fd1c")
+/*fetch("https://newsapi.org/v2/top-headlines?sources=the-wall-street-journal&apiKey=9b5160fadb7843a5a8e52d80c6f3fd1c")
   .then(function(response) {
     return response.json()
   })
@@ -36,8 +36,8 @@ fetch("https://newsapi.org/v2/top-headlines?sources=the-wall-street-journal&apiK
     /*for (var key in myJson){
     var percent = myJson[key].changePercent * 100
     $("#volumeticker").append(symbol);
-   }*/
-  });
+   }
+  });*/
 </script>
 <!--ending script for market news feed-->
 
@@ -74,11 +74,11 @@ fetch("https://newsapi.org/v2/top-headlines?sources=the-wall-street-journal&apiK
     <div class="container">
      <div class="row border-bottom">
         <div class="col">Ticker</div>
+        <div class="col">Name</div>
         <div class="col">Shares</div>
         <div class="col">Price</div>
         <div class="col">Market Value</div>
       </div>
-      
          <% portfolio.assignments.each_with_index do |a, index|%>
             <div class="accordion" id="accordionExample">
               <div>
@@ -87,17 +87,18 @@ fetch("https://newsapi.org/v2/top-headlines?sources=the-wall-street-journal&apiK
                 <div class="row border-bottom">
                  <div class="col">
                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree<%=a.id%>" aria-expanded="false" aria-controls="collapseThree<%=a.id%>">   
-                   <li class="list-inline-item"id="<%=a.stock.ticker%><%=index%>"><%= a.stock.ticker %></li>
+                   <li class="list-inline-item"><%= a.stock.ticker %></li>
                     </button>
                     </div>
-                      <div class="col"><%=a.shares%></div>
-                      <div class="col"id="stock_price"></div>
-                      <div class="col" id="portfolio_value"></div>
+                      <div class="col"><p class="<%=a.id%>companyname"></p></div>
+                      <div class="col"><p class="<%=a.id%>shares"><%=a.shares%></p></div>
+                      <div class="col"><p class="<%=a.id%>current_price"></p></div>
+                      <div class="col"><p class="<%=a.id%>market_value"></p></div>
                     </div>
                  </p>
                </div><!--ending div for headingThree-->
-
 <!--begin section for data inside tickers-->
+
       <div id="collapseThree<%=a.id%>" class="collapse<%a.id%>" aria-labelledby="headingThree" data-parent="#accordionExample">
         <div class="card-body">
 
@@ -120,44 +121,121 @@ fetch("https://newsapi.org/v2/top-headlines?sources=the-wall-street-journal&apiK
 
 <!--script for loading ticker tabs data-->
 <script>
- $("#<%=a.stock.ticker%><%=index%>").on("click", function() {
-    var iexstats = "https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/stats";
-    var iexquote = "https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/quote"
-    $.getJSON(iexquote, function(data) {
-       let pricelist = [data.latestPrice, data.previousClose, data.open, data.week52High, data.week52Low]
-       $('.prices').empty();
-       $.each(pricelist, function(key, value){
-         var html = value+'<br>';
-          $('.prices').append(html);
-       })
-   });
-    $.getJSON(iexstats, function(data) {
-       let volumelist = [data.institutionPercent, data.insiderPercent, data.day200MovingAvg, data.day50MovingAvg, data.float, data.shortRatio]
-       let changelist = [data.latestEPSDate, data.month3ChangePercent, data.month6ChangePercent, data.year1ChangePercent, data.ytdChangePercent, data.day5ChangePercent]
-       $('.volumes').empty();
-       $.each(volumelist, function(key, value){
-         var html = value+'<br>';
-          $('.volumes').append(html);
-       })
-        $('.changes').empty();
-       $.each(changelist, function(key, value){
-         var html = value+'<br>';
-          $('.changes').append(html);
-       })
-   });
+
+  fetch("https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/quote?displayPercent=true")
+  .then(function(response) {
+    return response.json()
+  })
+  .then(function(result) {
+    var current_price = result.iexRealtimePrice;
+    var shares = <%=a.shares%>;
+    var cal = shares * current_price
+    var market_value = cal.toFixed(2)
+    var companyname = result.companyName;
+    var openclose = result.open + " / " + result.close;
+    var highlow = result.high + " / " + result.low;
+    var fivetwohighlow = result.week52High + " / " + result.week52Low;
+    var today = result.changePercent.toFixed(3)
+    var ytd = result.ytdChange.toFixed(3)
+    var ytdchange = today + " / " + ytd;
+    var todaysavgvolume = result.latestVolume + " / " + result.avgTotalVolume;
+    var marketCap = result.marketCap;
+    $(".<%=a.id%>market_value").append(market_value); 
+    $(".<%=a.id%>companyname").append(companyname);    
+    $(".<%=a.id%>marketCap").append(marketCap);    
+    $(".<%=a.id%>1ytdchange").append(ytdchange);    
+    $(".<%=a.id%>todaysavgvolume").append(todaysavgvolume);    
+    $(".<%=a.id%>52highlow").append(fivetwohighlow);
+    $(".<%=a.id%>highlow").append(highlow);
+    $(".<%=a.id%>openclose").append(openclose);
+    $(".<%=a.id%>current_price").append(current_price);
   });
+  fetch("https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/stats")
+  .then(function(response) {
+    return response.json()
+  })
+  .then(function(result) {
+
+    var latestEPS = result.latestEPS
+    var institutionPercent = result.institutionPercent
+    var fivepercent = (result.day5ChangePercent*100).toFixed(3)
+    var thirtypercent = (result.day30ChangePercent*100).toFixed(3)    
+    var fivethirtypercent = fivepercent + " / " + thirtypercent
+    var insiderPercent = result.insiderPercent;
+    var threemonth = (result.month3ChangePercent*100).toFixed(3)
+    var sixmonth = (result.month6ChangePercent*100).toFixed(3)
+    var threesixmonth = threemonth + " / " + sixmonth;
+    var fiftyavgprice = result.day50MovingAvg.toFixed(2)
+    var twoavgprice = result.day200MovingAvg.toFixed(2)
+    var fiftytwoavgprice = fiftyavgprice + " / " + twoavgprice;
+    var week52change = result.week52change
+    var beta = result.beta
+
+    
+    $(".<%=a.id%>latestEPS").append(latestEPS);    
+    $(".<%=a.id%>institutionPercent").append(institutionPercent);    
+    $(".<%=a.id%>fivethirtypercent").append(fivethirtypercent); 
+    $(".<%=a.id%>insiderPercent").append(insiderPercent);
+    $(".<%=a.id%>threesixmonth").append(threesixmonth);
+    $(".<%=a.id%>fiftytwoavgprice").append(fiftytwoavgprice);
+    $(".<%=a.id%>week52change").append(week52change);
+    $(".<%=a.id%>beta").append(beta);
+
+  });
+  
+  
 </script>
 
-<!--div rows and columns for holding above jquery-->
-   <div class="row border-bottom">
-     <div class="col">Current Price:<br>Previous Close:<br>Opening Price:<br>52 Wk High:<br>52 Wk Low:</div>
-     <div class="col-sm"><div class="prices"></div></div>
-     <div class="col">Last EPS:<br>3 Mth Change:<br>6 Mth Change:<br>1 Yr Change:<br>YTD Change:<br>5 Day Change:</div>
-     <div class="col-sm"><div class="changes"></div></div>
-     <div class="col">Inst. Owned:<br>Insider Owned:<br>200 Day Avg:<br>50 Day Vol:<br>Float:<br>Short Ratio:<br></div>  
-     <div class="col-sm"><div class="volumes"></div></div>
-   </div>
-      
+<!--table for additional stock information-->
+             <table class="table-striped table-hover table-sm">
+               <thead>
+                
+               </thead>
+               <tbody>
+                <tr>
+                   <th>Current Price:</th>
+                   <td class="<%=a.id%>current_price"></td>
+                   <th >Last EPS:</th>
+                   <td class="<%=a.id%>latestEPS"></td>
+                   <th>Instit. Owned</th>
+                   <td class="<%=a.id%>institutionPercent"></td>
+                 </tr>
+                  <tr>
+                   <th>Open/Close</th>
+                   <td class="<%=a.id%>openclose"></td>
+                   <th>5/30 Day % Change</th>
+                   <td class="<%=a.id%>fivethirtypercent"></td>
+                   <th>Insider Owned</th>
+                   <td class="<%=a.id%>insiderPercent"></td>
+                 </tr>
+                  <tr>
+                   <th>High/Low</th>
+                   <td class="<%=a.id%>highlow"></td>
+                   <th>3/6 Mth % Change</th>
+                   <td class="<%=a.id%>threesixmonth"></td>
+                   <th>50/200 Mvg Avg</th>
+                   <td class="<%=a.id%>fiftytwoavgprice"></td>
+                 </tr>
+                  <tr>
+                   <th>52 Wk High/Low</th>
+                   <td class="<%=a.id%>52highlow"></td>
+                   <th>Today's/YTD % Change</th>
+                   <td class="<%=a.id%>1ytdchange"></td>
+                   <th>Today's/Avg Volume</th>
+                   <td class="<%=a.id%>todaysavgvolume"></td>
+                 </tr>
+                  <tr>
+                   <th>52 Wk % Change</th>
+                   <td class="<%=a.id%>week52change"></td>
+                   <th>Market Cap</th>
+                   <td class="<%=a.id%>marketCap"></td>
+                   <th>Beta</th>
+                   <td class="<%=a.id%>beta"></td>
+                 </tr>
+               </tbody>
+             </table>
+<!--table for additional stock information-->
+
     </div><!--ending div for tab-pane fade show active-->
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
