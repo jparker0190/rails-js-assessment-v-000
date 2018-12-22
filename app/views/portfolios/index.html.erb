@@ -13,36 +13,24 @@
 <!--adding market news feed-->
   <div class="card bg-light" >
      <div class="card-header"><strong>Market News</strong></div>
+     <div class='scroll'>
      <div class="card-body">
-      <div id ="headline"></div>
-      <div id="url"></div>
+     
+        <a class='headline'></a>
+     </div>
      </div>
      </div>
 <!--ending market news feed-->
 
-<!--script for market news feed-->
-<script>
-/*fetch("https://newsapi.org/v2/top-headlines?sources=the-wall-street-journal&apiKey=9b5160fadb7843a5a8e52d80c6f3fd1c")
-  .then(function(response) {
-    return response.json()
-  })
-  .then(function(myJson) {
-   var articles = (myJson.articles).length
-   console.log(articles)
-   for (let i = 0; i < articles; i++){
-    console.log(articles[i].title)
-   }
-    console.log(articles[1].title)
-    /*for (var key in myJson){
-    var percent = myJson[key].changePercent * 100
-    $("#volumeticker").append(symbol);
-   }
-  });*/
-</script>
-<!--ending script for market news feed-->
-
-
-
+<style>
+div.scroll
+{
+width:100%;
+height:200PX;
+overflow-y:scroll;
+overflow-x:hidden;
+}
+</style>
 <!--navbar for making portfolio display more elegant-->
 <div class="card card-login mx-auto mt-5">
  <div class="row">
@@ -119,10 +107,9 @@
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-<!--script for loading ticker tabs data-->
+<!--script for calculating the portfolio value-->
 <script>
-
-  fetch("https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/quote?displayPercent=true")
+ fetch("https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/quote?displayPercent=true")
   .then(function(response) {
     return response.json()
   })
@@ -149,7 +136,7 @@
     $(".<%=a.id%>highlow").append(highlow);
     $(".<%=a.id%>openclose").append(openclose);
     $(".<%=a.id%>current_price").append(current_price);
-  });
+  }); 
   fetch("https://api.iextrading.com/1.0/stock/<%=a.stock.ticker.to_s%>/stats")
   .then(function(response) {
     return response.json()
@@ -181,12 +168,10 @@
     $(".<%=a.id%>beta").append(beta);
 
   });
-  
-  
 </script>
 
 <!--table for additional stock information-->
-             <table class="table-striped table-hover table-sm">
+             <table class="table table-striped table-hover">
                <thead>
                 
                </thead>

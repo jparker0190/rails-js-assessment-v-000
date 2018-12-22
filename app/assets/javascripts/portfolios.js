@@ -89,3 +89,17 @@ fetch("https://api.iextrading.com/1.0/stock/market/list/mostactive")
     $("#focusper").append(convert);
    }
   });
+  
+  fetch("https://newsapi.org/v2/everything?q=stockmarket&apiKey=9b5160fadb7843a5a8e52d80c6f3fd1c")
+  .then(function(response) {
+    return response.json()
+  })
+  .then(function(myJson) {
+   myJson.articles.forEach(art =>{
+     var title = $('<a>');
+     title.text(art.title);
+     title.attr('href', art.url);
+     $('.headline').append(title, '<br>');
+   })
+  });
+  
