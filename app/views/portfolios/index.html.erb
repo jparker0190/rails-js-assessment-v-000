@@ -34,11 +34,14 @@ overflow-x:hidden;
 <!--navbar for making portfolio display more elegant-->
 <div class="card card-login mx-auto mt-5">
  <div class="row">
-  <div class="card-header text-right col-3"></div><!--ending div for the left-->
+  <div class="card-header text-right col-3">
+      <button onclick="getStocks();" type="button" class="btn btn-light btn-sm" data-toggle="modal" data-target="#exampleModalCenter">All available Stocks</button>
+  </div><!--ending div for the left-->
    <div class="card-header text-center col-6">
     <strong>Current Portfolios</strong>
    </div><!--ending for card-header text-center col-6-->
    <div class="card-header text-right col-3">
+   <%= link_to 'Create Portfolio', new_portfolio_path, class: 'btn btn-light btn-sm'%>
    </div><!--ending div for card-header text-right col-3-->
    
 <!--ul list for tab headers-->   
@@ -251,10 +254,7 @@ overflow-x:hidden;
 </div><!--ending div for card card-login mx-auto mt-5-->
 
 <br>
-    <%= link_to 'Create Portfolio', new_portfolio_path, class: 'btn btn-light'%>
-    <button onclick="getStocks();" type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter">All available Stocks</button>
-<br>
-<br>
+
 
 <!--adding market moving stocks section-->
  <div class="row">
