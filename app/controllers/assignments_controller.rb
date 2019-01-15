@@ -15,6 +15,8 @@ class AssignmentsController < ApplicationController
  # GET /assignments/new
  def new
    @assignment = Assignment.new(portfolio_id: params[:portfolio_id])
+   @stock = Assignment.new_from_lookup(params[:ticker])
+    
  end
 
  # GET /assignments/1/edit
@@ -23,7 +25,7 @@ class AssignmentsController < ApplicationController
 
  def create
    @assignment = Assignment.create(assignment_params)
-
+   @stock = Assignment.new_from_lookup(params[:ticker])
    respond_to do |format|
     if @assignment.save
       format.html { redirect_to @assignment, notice: 'Trade was successfully placed.' }
@@ -34,7 +36,7 @@ class AssignmentsController < ApplicationController
     end
   end
  end
-
+ 
  # PATCH/PUT /assignments/1
  # PATCH/PUT /assignments/1.json
  def update
@@ -65,6 +67,6 @@ class AssignmentsController < ApplicationController
 
  
    def assignment_params
-     params.require(:assignment).permit(:direction,:shares,:stock_id, :portfolio_id)
+     params.require(:assignment).permit(:direction,:ticker,:shares,:stock_id, :portfolio_id)
    end
 end

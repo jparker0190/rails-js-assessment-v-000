@@ -22,15 +22,26 @@
       </div>
 
       <div class="form-group text-center">
-        <%= form.label "Assign a stock" %>
-        <%=form.collection_select :stock_id, Stock.order(:ticker), :id, :ticker%>
+        <%=form.text_field :ticker, autofocus: true, class: 'form-control', placeholder: "Enter a Ticker"%><br>
+        
         <%= form.number_field :shares, autofocus: true, class: 'form-control', placeholder: "How many shares?" %>
         <%=form.radio_button :direction, "Buy", checked: true%> Buy
         <%=form.radio_button :direction, "Sell"%> Short
       </div>
-
+      <%if @stock%>
+        <div id="something">
+          <p>Joe</p>
+        </div>
+      <%end%>
       <div class="actions">
         <%= form.submit class: 'btn btn-primary btn-block' %>
       </div>
     <% end %>
+    <script>
+    $(document).ready(function(){
+    $('#stock-lookup-form').on('ajax:complete', function(event, data, status){
+    $('#results').html(data.responseText);
+  });
+});
+    </script>
     

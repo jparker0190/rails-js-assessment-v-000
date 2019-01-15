@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 2018_11_14_020556) do
   create_table "assignments", force: :cascade do |t|
     t.string "direction", default: "Buy"
     t.integer "shares"
+    t.string "ticker"
     t.float "market_value"
     t.integer "stock_id"
     t.integer "portfolio_id"
@@ -33,7 +34,7 @@ ActiveRecord::Schema.define(version: 2018_11_14_020556) do
   create_table "stocks", force: :cascade do |t|
     t.string "ticker"
     t.string "name"
-    t.decimal "last_price"
+    t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
