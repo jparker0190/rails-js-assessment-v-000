@@ -277,6 +277,7 @@ DEPENDENCIES
   omniauth-facebook
   puma (~> 3.11)
   rails (~> 5.2.1)
+  rest-client
   selenium-webdriver
   sqlite3
   stock_quote
